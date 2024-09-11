@@ -1,15 +1,13 @@
 "use client";
 import { useState, useEffect } from "react";
 import useSWR, { mutate } from "swr";
-import ReactQuill, { Quill } from "react-quill";
-import "react-quill/dist/quill.snow.css"; // Import Quill styles
+import dynamic from "next/dynamic"; //  dynamic for client-side only components
 import { fetcher } from "@/lib/fetcher";
 import "./FileEditor.css";
 
-// Extend Quill with custom sizes
-const SizeStyle = Quill.import("attributors/style/size");
-SizeStyle.whitelist = ["8px", "12px", "16px", "24px", "32px", "40px"];
-Quill.register(SizeStyle, true);
+// Dynamically import ReactQuill to disable SSR
+const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
+import "react-quill/dist/quill.snow.css"; // t Quill styles
 
 const FileEditor = ({ fileId }) => {
   const { data, error, isLoading } = useSWR(
@@ -22,8 +20,8 @@ const FileEditor = ({ fileId }) => {
   const [deleting, setDeleting] = useState(false);
 
   useEffect(() => {
-    if (data?.file?.htmlContent) {
-      setEditorContent(data?.file?.htmlContent);
+    if (data?.data?.htmlContent) {
+      setEditorContent(data?.data?.htmlContent);
     }
   }, [data]);
 
@@ -85,8 +83,18 @@ const FileEditor = ({ fileId }) => {
     }
   };
 
-  if (isLoading) return <div className="text-center">Loading file...</div>;
-  if (error) return <div className="text-center">Failed to load file</div>;
+  if (isLoading)
+    return (
+      <div className="text-center h-screen text-white flex justify-center items-center font-semibold">
+        Loading file. . . .
+      </div> 
+    );
+  if (error)
+    return (
+      <div className="text-center h-screen text-red-600 flex justify-center items-center font-semibold">
+        Error ! Failed to load file 😢
+      </div>
+    );
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 p-6 h-max">
