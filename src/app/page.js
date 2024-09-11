@@ -1,10 +1,10 @@
-import UploadingPage from '@/Components/UploadingPage';
-import React from 'react';
+import React from "react";
+import BlogMainPage from "./blogs/page";
 
 const page = () => {
   return (
     <div>
-      <UploadingPage/>
+      <BlogMainPage />
     </div>
   );
 };
