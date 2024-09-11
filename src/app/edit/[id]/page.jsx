@@ -1,3 +1,4 @@
+"use client";
 import FileEditor from "@/Components/FileEditor/FileEditor";
 
 const EditorMainPage = ({ params }) => {
