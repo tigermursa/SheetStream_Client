@@ -4,7 +4,7 @@ const BlogMainPage = async () => {
   const blogs = await getAllBlogs();
 
   return (
-    <div className="p-4 space-y-4 bg-white text-gray-900 ">
+    <div className="p-4 space-y-4 bg-white text-gray-900 h-max ">
       {blogs?.files?.map((blog) => (
         <div
           key={blog._id}

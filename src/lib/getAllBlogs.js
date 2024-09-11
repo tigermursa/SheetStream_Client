@@ -2,7 +2,7 @@ export default async function getAllBlogs() {
   try {
     const result = await fetch("http://localhost:5000/api/v1/files/files", {
       next: {
-        revalidate: 5,
+        revalidate: 30,
       },
     });
     if (!result.ok) {
@@ -15,4 +15,4 @@ export default async function getAllBlogs() {
   }
 }
 
-// cache:"no-store"  if want to show instant
+// cache:"no-store" 
