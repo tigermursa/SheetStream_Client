@@ -3,21 +3,33 @@
   line-height: 1.5; /* Line height for readability */
 }
 
-.ql-editor .ql-size-xxsmall {
-  font-size: 8px;
+/* Override content for size labels in the dropdown */
+.ql-snow .ql-picker.ql-size .ql-picker-label[data-value="8px"]::before,
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-value="8px"]::before {
+  content: "8px" !important;
 }
-.ql-editor .ql-size-small {
-  font-size: 12px;
+
+.ql-snow .ql-picker.ql-size .ql-picker-label[data-value="12px"]::before,
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-value="12px"]::before {
+  content: "12px" !important;
 }
-.ql-editor .ql-size-medium {
-  font-size: 16px;
+
+.ql-snow .ql-picker.ql-size .ql-picker-label[data-value="16px"]::before,
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-value="16px"]::before {
+  content: "16px" !important;
 }
-.ql-editor .ql-size-large {
-  font-size: 24px;
+
+.ql-snow .ql-picker.ql-size .ql-picker-label[data-value="24px"]::before,
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-value="24px"]::before {
+  content: "24px" !important;
 }
-.ql-editor .ql-size-xlarge {
-  font-size: 32px;
+
+.ql-snow .ql-picker.ql-size .ql-picker-label[data-value="32px"]::before,
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-value="32px"]::before {
+  content: "32px" !important;
 }
-.ql-editor .ql-size-xxlarge {
-  font-size: 40px;
+
+.ql-snow .ql-picker.ql-size .ql-picker-label[data-value="40px"]::before,
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-value="40px"]::before {
+  content: "40px" !important;
 }
