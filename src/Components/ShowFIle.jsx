@@ -1,8 +1,10 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import useSWR, { mutate } from "swr";
 import ReactQuill, { Quill } from "react-quill"; // Make sure to import Quill here
 import "react-quill/dist/quill.snow.css"; // Import Quill styles
 import "./quill-custom.css"; // Your custom CSS
+import { fetcher } from "@/lib/fetcher";
 
 // Extend Quill with custom sizes
 const SizeStyle = Quill.import("attributors/style/size");
@@ -10,33 +12,13 @@ SizeStyle.whitelist = ["8px", "12px", "16px", "24px", "32px", "40px"];
 Quill.register(SizeStyle, true);
 
 const ShowFile = () => {
-  const [files, setFiles] = useState([]);
+  const { data, error, isLoading } = useSWR(
+    "http://localhost:5000/api/v1/files/files",
+    fetcher
+  );
   const [editingFileId, setEditingFileId] = useState(null);
   const [editorContent, setEditorContent] = useState("");
   const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    const fetchFiles = async () => {
-      setLoading(true);
-      try {
-        const response = await fetch(
-          "http://localhost:5000/api/v1/files/files"
-        );
-        const data = await response.json();
-        if (response.ok) {
-          setFiles(data.files);
-        } else {
-          console.error("Failed to fetch files:", data.message);
-        }
-      } catch (error) {
-        console.error("Fetch error:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchFiles();
-  }, []);
 
   const handleEdit = (fileId, content) => {
     setEditingFileId(fileId);
@@ -61,8 +43,7 @@ const ShowFile = () => {
           setEditingFileId(null);
           setEditorContent("");
           // Refresh the file list
-          const updatedFiles = await response.json();
-          setFiles(updatedFiles.files);
+          mutate("http://localhost:5000/api/v1/files/files");
         } else {
           console.error("Failed to update file:", await response.text());
         }
@@ -74,33 +55,32 @@ const ShowFile = () => {
     }
   };
 
+  if (isLoading) return <div className="text-center">Loading files...</div>;
+  if (error) return <div className="text-center">Failed to load files</div>;
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 p-6">
       <div className="p-8 rounded-lg shadow-lg w-full md:w-[80%] bg-white">
         <h1 className="text-2xl font-bold mb-6 text-center">Uploaded Files</h1>
-        {loading ? (
-          <div className="text-center">Loading files...</div>
-        ) : (
-          <ul className="text-left space-y-4">
-            {files?.map((file) => (
-              <li key={file._id} className="mb-4 text-gray-900">
-                <h2 className="text-xl font-semibold mb-2">{file.fileName}</h2>
-                <div className="mb-4">
-                  <div
-                    className="p-4 border border-gray-300 rounded bg-gray-50 mb-4"
-                    dangerouslySetInnerHTML={{ __html: file.htmlContent }}
-                  />
-                  <button
-                    className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-                    onClick={() => handleEdit(file._id, file.htmlContent)}
-                  >
-                    Edit
-                  </button>
-                </div>
-              </li>
-            ))}
-          </ul>
-        )}
+        <ul className="text-left space-y-4">
+          {data?.files?.map((file) => (
+            <li key={file._id} className="mb-4 text-gray-900">
+              <h2 className="text-xl font-semibold mb-2">{file.fileName}</h2>
+              <div className="mb-4">
+                <div
+                  className="p-4 border border-gray-300 rounded bg-gray-50 mb-4"
+                  dangerouslySetInnerHTML={{ __html: file.htmlContent }}
+                />
+                <button
+                  className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+                  onClick={() => handleEdit(file._id, file.htmlContent)}
+                >
+                  Edit
+                </button>
+              </div>
+            </li>
+          ))}
+        </ul>
         {editingFileId && (
           <div className="mt-8">
             <h2 className="text-xl mb-4 font-semibold">Edit Content</h2>

@@ -1,10 +1,18 @@
 "use client";
+import { fetcher } from "@/lib/fetcher";
 import Link from "next/link";
 import { useState } from "react";
+import useSWR from "swr";
 
 const UploadingPage = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [uploadStatus, setUploadStatus] = useState("");
+
+  // Use SWR to fetch the list of files
+  const { mutate } = useSWR(
+    "http://localhost:5000/api/v1/files/files",
+    fetcher
+  );
 
   const handleFileChange = (e) => {
     setSelectedFile(e.target.files[0]);
@@ -32,6 +40,8 @@ const UploadingPage = () => {
 
       if (response.ok) {
         setUploadStatus("File uploaded successfully!");
+        // Refetch the file list after successful upload
+        mutate();
       } else {
         setUploadStatus(`Error: ${data.message}`);
       }
@@ -60,7 +70,7 @@ const UploadingPage = () => {
         </button>
         <Link href={"/show"}>
           <button className="mt-4 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">
-            see
+            See
           </button>
         </Link>
 
