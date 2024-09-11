@@ -6,10 +6,6 @@
   --background: #ffffff;
   --foreground: #171717;
 }
-.ql-editor {
-  font-size: 16px; /* Adjust as needed */
-  line-height: 1.5; /* Adjust line height for better readability */
-}
 
 @media (prefers-color-scheme: dark) {
   :root {

@@ -1,0 +1,23 @@
+.ql-editor {
+  font-size: 16px; /* Default font size */
+  line-height: 1.5; /* Line height for readability */
+}
+
+.ql-editor .ql-size-xxsmall {
+  font-size: 8px;
+}
+.ql-editor .ql-size-small {
+  font-size: 12px;
+}
+.ql-editor .ql-size-medium {
+  font-size: 16px;
+}
+.ql-editor .ql-size-large {
+  font-size: 24px;
+}
+.ql-editor .ql-size-xlarge {
+  font-size: 32px;
+}
+.ql-editor .ql-size-xxlarge {
+  font-size: 40px;
+}
