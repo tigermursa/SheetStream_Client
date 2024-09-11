@@ -1,4 +1,4 @@
-import UploadFile from "@/Components/UploadingPage/UploadingPage";
+import UploadFile from "@/Pages/Upload/UploadingPage";
 
 const UploadFileMainPage = () => {
   return (

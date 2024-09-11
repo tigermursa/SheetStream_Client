@@ -1,40 +1,38 @@
 "use client";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { FaHome, FaUpload, FaEdit } from "react-icons/fa";
 
+const navItems = [
+  { name: "Home", href: "/", icon: <FaHome size={20} /> },
+  { name: "Upload File", href: "/upload", icon: <FaUpload size={20} /> },
+  { name: "Edit", href: "/edit", icon: <FaEdit size={20} /> },
+];
+
 const Navbar = () => {
-  const { pathname } = useRouter();
+  const pathname = usePathname();
+
+  const isActive = (href) => {
+    if (href === "/") {
+      return pathname === href;
+    }
+    return pathname.startsWith(href);
+  };
 
   return (
     <nav className="bg-gray-800 text-white flex justify-around items-center p-4 shadow-md">
-      <Link
-        href="/"
-        className={`flex items-center space-x-2 ${
-          pathname === "/" ? "text-yellow-300" : ""
-        }`}
-      >
-        <FaHome size={20} />
-        <span>Home</span>
-      </Link>
-      <Link
-        href="/upload"
-        className={`flex items-center space-x-2 ${
-          pathname === "/upload" ? "text-yellow-300" : ""
-        }`}
-      >
-        <FaUpload size={20} />
-        <span>Upload</span>
-      </Link>
-      <Link
-        href="/edit"
-        className={`flex items-center space-x-2 ${
-          pathname === "/edit" ? "text-yellow-300" : ""
-        }`}
-      >
-        <FaEdit size={20} />
-        <span>Edit</span>
-      </Link>
+      {navItems.map((item) => (
+        <Link
+          key={item.href}
+          href={item.href}
+          className={`flex items-center space-x-2 ${
+            isActive(item.href) ? "text-[#70ad29]" : "text-gray-400"
+          }`}
+        >
+          {item.icon}
+          <span>{item.name}</span>
+        </Link>
+      ))}
     </nav>
   );
 };

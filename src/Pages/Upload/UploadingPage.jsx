@@ -1,6 +1,7 @@
 "use client";
 import { fetcher } from "@/lib/fetcher";
 import { useState } from "react";
+import { toast } from "react-toastify";
 import useSWR from "swr";
 
 const UploadFile = () => {
@@ -50,14 +51,14 @@ const UploadFile = () => {
       const data = await response.json();
 
       if (response.ok) {
-        setUploadStatus("File uploaded successfully!");
+        toast.success("Got your DOCX file!");
         mutate(); // Refetch the file list after successful upload
       } else {
-        setUploadStatus(`Error: ${data.message}`);
+        toast.error(`Error: ${data.message}`);
       }
     } catch (error) {
       console.error("Upload error:", error);
-      setUploadStatus("File upload failed. Please try again.");
+      toast.error("File upload failed. Please try again.");
     }
   };
 

@@ -2,7 +2,7 @@ import { FaGithub, FaLinkedin } from "react-icons/fa";
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-900 text-white p-6 z-40">
+    <footer className="bg-gray-900 text-white p-6 z-40 border-t">
       <div className="container mx-auto flex flex-col items-center">
         <h2 className="text-2xl font-bold mb-2">SheetStream</h2>
         <p className="text-sm mb-4">© 2024 Mursalin. All rights reserved.</p>

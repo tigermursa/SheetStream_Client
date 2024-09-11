@@ -5,25 +5,23 @@ import ReactQuill, { Quill } from "react-quill";
 import "react-quill/dist/quill.snow.css"; // Import Quill styles
 import { fetcher } from "@/lib/fetcher";
 import "./FileEditor.css";
+import { toast } from "react-toastify";
 
 // Extend Quill with custom sizes
 const SizeStyle = Quill.import("attributors/style/size");
 SizeStyle.whitelist = ["8px", "12px", "16px", "24px", "32px", "40px"];
 Quill.register(SizeStyle, true);
 
-const FileEditor = ({ fileId }) => {
-  const { data, error, isLoading } = useSWR(
-    `http://localhost:5000/api/v1/files/single/${fileId}`,
-    fetcher
-  );
-
+const FileEditor = ({ fileId, fileData }) => {
+  
+  const data = fileData;
   const [editorContent, setEditorContent] = useState("");
   const [loading, setLoading] = useState(false);
   const [deleting, setDeleting] = useState(false);
 
   useEffect(() => {
-    if (data?.file?.htmlContent) {
-      setEditorContent(data?.file?.htmlContent);
+    if (data && data.data && data.data.htmlContent) {
+      setEditorContent(data.data.htmlContent);
     }
   }, [data]);
 
@@ -41,7 +39,7 @@ const FileEditor = ({ fileId }) => {
         );
 
         if (response.ok) {
-          alert("Content updated successfully!");
+          toast.success("The file has been updated successfully");
           mutate(`http://localhost:5000/api/v1/files/single/${fileId}`);
         } else {
           console.error("Failed to update file:", await response.text());
@@ -54,6 +52,7 @@ const FileEditor = ({ fileId }) => {
     }
   };
 
+  //delete file api
   const handleDelete = async () => {
     if (fileId) {
       const confirmDelete = window.confirm(
@@ -71,26 +70,32 @@ const FileEditor = ({ fileId }) => {
         );
 
         if (response.ok) {
-          alert("File deleted successfully!");
+          toast.success("The file has been deleted successfully!");
           // You can redirect the user or trigger a re-render here
           mutate(`http://localhost:5000/api/v1/files/single/${fileId}`);
         } else {
           console.error("Failed to delete file:", await response.text());
+          toast.error("Failed to delete file:", await response.text());
         }
       } catch (error) {
-        console.error("Error deleting file:", error);
+        toast.error("Error deleting file:", error);
       } finally {
         setDeleting(false);
       }
     }
   };
 
-  if (isLoading) return <div className="text-center">Loading file...</div>;
-  if (error) return <div className="text-center">Failed to load file</div>;
+  // if (isLoading)
+  //   return (
+  //     <div className="text-center text-white h-screen flex items-center justify-center">
+  //       Loading file...
+  //     </div>
+  //   );
+  // if (error) return <div className="text-center">Failed to load file</div>;
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 p-6 h-max">
-      <div className="p-8 rounded-lg shadow-lg w-full md:w-[80%] bg-white text-gray-800">
+    <div className="min-h-screen flex items-center justify-center bg-gray-900 p-6 h-screen">
+      <div className="p-8 rounded-lg shadow-lg w-full md:w-[70%] h-max bg-white text-gray-800">
         <div>
           <h2 className="text-xl mb-4 font-semibold">Edit Content</h2>
           <ReactQuill
