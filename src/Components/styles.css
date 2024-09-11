@@ -1,0 +1,18 @@
+/* styles.css or a similar stylesheet */
+.custom-html-content a {
+    color: #1a0dab; /* Link color */
+    text-decoration: underline;
+  }
+  
+  .custom-html-content strong {
+    font-weight: bold;
+  }
+  
+  .custom-html-content em {
+    font-style: italic;
+  }
+  
+  .custom-html-content u {
+    text-decoration: underline;
+  }
+  
