@@ -33,15 +33,8 @@ const FileEditor = ({ fileId }) => {
   const [isLoadingImageTwo, setIsLoadingImageTwo] = useState(false);
   const [imageOnePreview, setImageOnePreview] = useState(DEFAULT_IMAGE_URL);
   const [imageTwoPreview, setImageTwoPreview] = useState(DEFAULT_IMAGE_URL);
-
-  // Fetch the current online status using SWR
-  const { data: onlineData, mutate: mutateIsOnline } = useSWR(
-    `http://localhost:5000/api/v1/files/toggle/isOnline/${fileId}`,
-    fetcher
-  );
-
-  // Set the initial online state from SWR data (default to false if not fetched yet)
-  const isOnline = onlineData?.isOnline || false;
+  const [isOnline, setIsOnline] = useState(false); // Default to false
+  const [isToggling, setIsToggling] = useState(false); // For toggle loading state
 
   const { data, error, isLoading } = useSWR(
     `http://localhost:5000/api/v1/files/single/${fileId}`,
@@ -55,6 +48,7 @@ const FileEditor = ({ fileId }) => {
       setValue("shortDescription", data?.data?.shortDescription || "");
       setImageOnePreview(data?.data?.imageOne || DEFAULT_IMAGE_URL);
       setImageTwoPreview(data?.data?.imageTwo || DEFAULT_IMAGE_URL);
+      setIsOnline(data?.data?.isOnline);
     }
   }, [data, setValue]);
 
@@ -155,53 +149,74 @@ const FileEditor = ({ fileId }) => {
 
   // Function to toggle online status using SWR mutate
   const toggleIsOnline = async () => {
+    setIsToggling(true); // Start loading state for toggle
     try {
-      // Optimistically update the UI before the API call
-      mutateIsOnline({ isOnline: !isOnline }, false);
-
       const response = await fetch(
         `http://localhost:5000/api/v1/files/toggle/isOnline/${fileId}`,
         {
           method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ isOnline: !isOnline }),
         }
       );
 
       if (response.ok) {
         const result = await response.json();
-        // Update SWR cache with the actual result
-        mutateIsOnline(result);
+        setIsOnline(result.isOnline); // Update state based on server response
         toast.success(`File is now ${result.isOnline ? "Online" : "Offline"}`);
       } else {
         toast.error("Failed to toggle status");
       }
     } catch (error) {
       toast.error("Error toggling online status");
-      // Rollback optimistic update in case of error
-      mutateIsOnline({ isOnline: isOnline }, false);
+    } finally {
+      setIsToggling(false); // End loading state
+      mutate(`http://localhost:5000/api/v1/files/single/${fileId}`); // Fetch latest data
     }
   };
 
-  if (isLoading) return <div>Loading file...</div>;
-  if (error) return <div>Error loading file...</div>;
+  if (isLoading)
+    return (
+      <div className="text-gray-100 flex items-center justify-center text-lg text-center h-screen bg-gray-900 ">
+        Loading file...
+      </div>
+    );
+  if (error)
+    return (
+      <div className="text-gray-100 flex items-center justify-center text-lg text-center h-screen bg-gray-900 ">
+        Error loading file...
+      </div>
+    );
 
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
       className="p-8 bg-gray-50 text-gray-900 rounded-lg shadow-lg w-[50%] mx-auto  mt-5 mb-5"
     >
+      {/* Toggle button with loading spinner */}
+      <label className="block mb-2 font-medium text-gray-900">
+        {isOnline ? <p>Online</p>:<p>offline</p>}
+      </label>
       <button
         type="button"
         onClick={toggleIsOnline}
-        className={`mt-4 px-4 py-2 border ${
-          isOnline
-            ? "border-green-600 text-green-600"
-            : "border-red-600 text-red-600"
-        } font-semibold rounded-md hover:bg-gray-200`}
+        className={`relative inline-flex items-center h-6 rounded-full w-11  mb-10
+    ${
+      isOnline ? "bg-green-500" : "bg-gray-300"
+    } transition-colors duration-200 ease-in-out`}
+        disabled={isToggling}
       >
-        {isOnline ? "Online" : "Offline"}
+        {isToggling ? (
+          <span className="spinner-border spinner-border-sm text-white text-center"></span>
+        ) : (
+          <span
+            className={`inline-block w-4 h-4 transform bg-white rounded-full transition-transform duration-200 
+      ${isOnline ? "translate-x-6" : "translate-x-1"}`}
+          />
+        )}
       </button>
       {/* Image One Input */}
-      <label className="block mb-2 font-medium text-gray-100">
+      <label className="block mb-2 font-medium text-gray-900">
         Thumbnail Image
       </label>
       <div className="mb-4">
@@ -228,7 +243,7 @@ const FileEditor = ({ fileId }) => {
       {isLoadingImageOne && <p>Uploading Image One...</p>}
 
       {/* Image Two Input */}
-      <label className="block mb-2 font-medium text-gray-100">Image Two</label>
+      <label className="block mb-2 font-medium text-gray-900">Image Two</label>
       <div className="mb-4">
         <Image
           src={imageTwoPreview}
@@ -253,7 +268,7 @@ const FileEditor = ({ fileId }) => {
       {isLoadingImageTwo && <p>Uploading Image Two...</p>}
 
       {/* Title Input */}
-      <label className="block mb-2 font-medium text-gray-100">Title</label>
+      <label className="block mb-2 font-medium text-gray-900">Title</label>
       <input
         {...register("title", { required: "Title is required" })}
         type="text"
@@ -263,7 +278,7 @@ const FileEditor = ({ fileId }) => {
       {errors.title && <p className="text-red-600">{errors.title.message}</p>}
 
       {/* ShortDescription Input */}
-      <label className="block mb-2 font-medium text-gray-100">
+      <label className="block mb-2 font-medium text-gray-900">
         Short Description
       </label>
       <input
