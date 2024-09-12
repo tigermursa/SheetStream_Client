@@ -1,9 +1,9 @@
-import BlogMainPage from "./blogs/page";
+import Home from "@/Pages/Home/Home";
 
 const page = () => {
   return (
     <div>
-      <BlogMainPage />
+      <Home />
     </div>
   );
 };
