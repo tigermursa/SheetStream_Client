@@ -1,28 +1,17 @@
 /* eslint-disable react-refresh/only-export-components */
- import getAllBlogs from "@/lib/getAllBlogs";
+import getAllBlogs from "@/lib/getAllBlogs";
 import getSingleBlogs from "@/lib/getSingleBlog";
 import Image from "next/image";
 
-
-
-
-
+// SSR CODE ... 
 export const generateStaticParams = async () => {
-  const res = await getAllBlogs()
+  const res = await getAllBlogs();
   const blogs = await res?.data;
 
   return blogs.slice(0, 4).map((blog) => ({
     blogId: blog?.id,
   }));
 };
-
-
-
-
-
-
-
-
 
 const BlogDetails = async ({ params }) => {
   const blogId = params?.id;
@@ -80,5 +69,3 @@ const BlogDetails = async ({ params }) => {
 };
 
 export default BlogDetails;
-
-
