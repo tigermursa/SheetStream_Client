@@ -1,48 +1,87 @@
 "use client";
 import { useState, useEffect } from "react";
+import { useForm } from "react-hook-form";
 import useSWR, { mutate } from "swr";
-import dynamic from "next/dynamic"; // dynamic for client-side only components
+import dynamic from "next/dynamic";
 import { fetcher } from "@/lib/fetcher";
+import { toast } from "react-toastify";
+import Image from "next/image";
 import "./FileEditor.css";
 import { useRouter } from "next/navigation";
 
 // Dynamically import ReactQuill to disable SSR
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 import "react-quill/dist/quill.snow.css"; // Quill styles
-import { toast } from "react-toastify";
-import Image from "next/image";
+
+const DEFAULT_IMAGE_URL =
+  "https://www.creativefabrica.com/wp-content/uploads/2021/04/05/Photo-Image-Icon-Graphics-10388619-1-1-580x386.jpg";
 
 const FileEditor = ({ fileId }) => {
-  useEffect(() => {
-    // Import and configure Quill only after the component has mounted
-    import("quill").then((Quill) => {
-      const SizeStyle = Quill.default.import("attributors/style/size");
-      SizeStyle.whitelist = ["8px", "12px", "16px", "24px", "32px", "40px"];
-      Quill.default.register(SizeStyle, true);
-    });
-  }, []);
   const router = useRouter();
+
+  // Form setup using React Hook Form
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm();
+  const [editorContent, setEditorContent] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [deleting, setDeleting] = useState(false);
+  const [isLoadingImageOne, setIsLoadingImageOne] = useState(false);
+  const [isLoadingImageTwo, setIsLoadingImageTwo] = useState(false);
+  const [imageOnePreview, setImageOnePreview] = useState(DEFAULT_IMAGE_URL);
+  const [imageTwoPreview, setImageTwoPreview] = useState(DEFAULT_IMAGE_URL);
 
   const { data, error, isLoading } = useSWR(
     `http://localhost:5000/api/v1/files/single/${fileId}`,
     fetcher
   );
 
-  const [editorContent, setEditorContent] = useState("");
-  const [imageOne, setImageOne] = useState("");
-  const [imageTwo, setImageTwo] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [deleting, setDeleting] = useState(false);
-
   useEffect(() => {
     if (data?.data) {
       setEditorContent(data?.data?.htmlContent || "");
-      setImageOne(data?.data?.imageOne || "");
-      setImageTwo(data?.data?.imageTwo || "");
+      setValue("title", data?.data?.title || "");
+      setValue("shortDescription", data?.data?.shortDescription || "");
+      setImageOnePreview(data?.data?.imageOne || DEFAULT_IMAGE_URL);
+      setImageTwoPreview(data?.data?.imageTwo || DEFAULT_IMAGE_URL);
     }
-  }, [data]);
+  }, [data, setValue]);
 
-  const handleSave = async () => {
+  const uploadToCloudinary = async (image, setImageUrl, setLoadingImage) => {
+    setLoadingImage(true);
+    const formData = new FormData();
+    formData.append("file", image);
+    formData.append(
+      "upload_preset",
+      process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET
+    );
+    formData.append(
+      "cloud_name",
+      process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME
+    );
+
+    try {
+      const response = await fetch(
+        "https://api.cloudinary.com/v1_1/dvwmhlyd6/image/upload",
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+
+      const data = await response.json();
+      setImageUrl(data.url);
+    } catch (error) {
+      console.error("Image upload failed:", error);
+      toast.error("Image upload failed");
+    } finally {
+      setLoadingImage(false);
+    }
+  };
+
+  const onSubmit = async (formData) => {
     if (fileId) {
       setLoading(true);
       try {
@@ -52,9 +91,10 @@ const FileEditor = ({ fileId }) => {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
+              ...formData,
               htmlContent: editorContent,
-              imageOne,
-              imageTwo,
+              imageOne: imageOnePreview,
+              imageTwo: imageTwoPreview,
             }),
           }
         );
@@ -63,12 +103,10 @@ const FileEditor = ({ fileId }) => {
           toast.success("Content updated successfully!");
           mutate(`http://localhost:5000/api/v1/files/single/${fileId}`);
         } else {
-          console.error("Failed to update file:", await response.text());
-          toast.error("Failed to update file:");
+          toast.error("Failed to update file");
         }
       } catch (error) {
-        console.error("Error updating content:", error);
-        toast.error("Error updating content:", error);
+        toast.error("Error updating content");
       } finally {
         setLoading(false);
       }
@@ -96,139 +134,130 @@ const FileEditor = ({ fileId }) => {
           mutate(`http://localhost:5000/api/v1/files/single/${fileId}`);
           router.push("/edit");
         } else {
-          console.error("Failed to delete file:", await response.text());
-          toast.error("Failed to delete file:");
+          toast.error("Failed to delete file");
         }
       } catch (error) {
-        console.error("Error deleting file:", error);
-        toast.error("Error deleting file:", error);
+        toast.error("Error deleting file");
       } finally {
         setDeleting(false);
       }
     }
   };
 
-  if (isLoading)
-    return (
-      <div className="text-center h-screen text-white flex justify-center items-center font-semibold">
-        Loading file. . . .
-      </div>
-    );
-  if (error)
-    return (
-      <div className="text-center h-screen text-red-600 flex justify-center items-center font-semibold">
-        Error! Failed to load file 😢
-      </div>
-    );
+  if (isLoading) return <div>Loading file...</div>;
+  if (error) return <div>Error loading file...</div>;
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-900 p-6">
-      <div className="p-8 rounded-lg shadow-lg w-full md:w-[60%] bg-white text-gray-700">
-        <div>
-          <h2 className="text-xl mb-4 font-semibold">Edit Content</h2>
-          {/* Image One Input and Preview */}
-          <label className="block mb-2 font-medium text-gray-700">
-            Image One
-          </label>
-          {imageOne && (
-            <div className="mb-4">
-              <Image
-                src={imageOne}
-                alt="Image One"
-                width={720}
-                height={1080}
-                className="max-w-[400px] max-h-[400px] object-contain rounded mb-2 mx-auto"
-              />
-            </div>
-          )}
-          <input
-            type="text"
-            placeholder="Enter Image One URL"
-            value={imageOne}
-            onChange={(e) => setImageOne(e.target.value)}
-            className="w-full p-2 mb-4 border rounded-md border-gray-300"
-          />
-
-          {/* Image Two Input and Preview */}
-          <label className="block mb-2 font-medium text-gray-700">
-            Image Two
-          </label>
-          {imageTwo && (
-            <div className="mb-4">
-              <Image
-                src={imageTwo}
-                alt="Image Two"
-                width={720}
-                height={1080}
-                className="max-w-[400px] max-h-[400px] object-contain rounded mb-2 mx-auto"
-              />
-            </div>
-          )}
-          <input
-            type="text"
-            placeholder="Enter Image Two URL"
-            value={imageTwo}
-            onChange={(e) => setImageTwo(e.target.value)}
-            className="w-full p-2 mb-4 border rounded-md border-gray-300"
-          />
-
-          {/* Text Editor */}
-          <ReactQuill
-            value={editorContent}
-            onChange={setEditorContent}
-            theme="snow"
-            modules={{
-              toolbar: [
-                [{ font: [] }],
-                [
-                  {
-                    size: ["8px", "12px", "16px", "24px", "32px", "40px"], // Define sizes directly
-                  },
-                ],
-                ["bold", "italic", "underline", "strike"],
-                [{ color: [] }, { background: [] }],
-                [{ list: "ordered" }, { list: "bullet" }],
-                ["link", "image"],
-                ["clean"],
-              ],
-            }}
-            formats={[
-              "font",
-              "size",
-              "bold",
-              "italic",
-              "underline",
-              "strike",
-              "color",
-              "background",
-              "list",
-              "bullet",
-              "link",
-              "image",
-              "clean",
-            ]}
-            className="react-quill min-h-[300px] border border-gray-300 rounded"
-            style={{ backgroundColor: "#ffffff", color: "#000000" }}
-          />
-          <div className="flex justify-end mt-4 space-x-2">
-            <button
-              className="mt-4 px-4 py-2 border border-red-600 text-red-600 hover:text-white font-semibold rounded-md hover:bg-red-600 transition-colors duration-500"
-              onClick={handleDelete}
-              disabled={deleting}
-            >
-              {deleting ? "Deleting..." : "Delete File"}
-            </button>
-            <button
-              className="mt-4 px-4 py-2 border border-green-600 text-green-600 hover:text-white font-semibold rounded-md hover:bg-green-700 transition-colors duration-500"
-              onClick={handleSave}
-              disabled={loading}
-            >
-              {loading ? "Saving..." : "Save Changes"}
-            </button>
-          </div>
-        </div>
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="p-8 bg-gray-900 rounded-lg shadow-lg w-[50%] mx-auto"
+    >
+      {/* Image One Input */}
+      <label className="block mb-2 font-medium text-gray-100">
+        Thumbnail Image
+      </label>
+      <div className="mb-4">
+        <Image
+          src={imageOnePreview}
+          alt="Image One Preview"
+          width={400}
+          height={400}
+          className="max-w-[400px] max-h-[400px] object-contain rounded mx-auto"
+        />
       </div>
-    </div>
+      <input
+        type="file"
+        accept="image/*"
+        onChange={(e) =>
+          uploadToCloudinary(
+            e.target.files[0],
+            setImageOnePreview,
+            setIsLoadingImageOne
+          )
+        }
+        className="w-full p-2 mb-4 border rounded-md border-gray-300"
+      />
+      {isLoadingImageOne && <p>Uploading Image One...</p>}
+
+      {/* Image Two Input */}
+      <label className="block mb-2 font-medium text-gray-100">Image Two</label>
+      <div className="mb-4">
+        <Image
+          src={imageTwoPreview}
+          alt="Image Two Preview"
+          width={400}
+          height={400}
+          className="max-w-[400px] max-h-[400px] object-contain rounded mx-auto"
+        />
+      </div>
+      <input
+        type="file"
+        accept="image/*"
+        onChange={(e) =>
+          uploadToCloudinary(
+            e.target.files[0],
+            setImageTwoPreview,
+            setIsLoadingImageTwo
+          )
+        }
+        className="w-full p-2 mb-4 border rounded-md border-gray-300"
+      />
+      {isLoadingImageTwo && <p>Uploading Image Two...</p>}
+
+      {/* Title Input */}
+      <label className="block mb-2 font-medium text-gray-100">Title</label>
+      <input
+        {...register("title", { required: "Title is required" })}
+        type="text"
+        placeholder="Enter title"
+        className="w-full p-2 mb-4 border rounded-md border-gray-300 text-gray-900"
+      />
+      {errors.title && <p className="text-red-600">{errors.title.message}</p>}
+
+      {/* ShortDescription Input */}
+      <label className="block mb-2 font-medium text-gray-100">
+        Short Description
+      </label>
+      <input
+        {...register("shortDescription", {
+          required: "Short description is required",
+        })}
+        type="text"
+        placeholder="Enter short description"
+        className="w-full p-2 mb-4 border rounded-md border-gray-300 text-gray-900"
+      />
+      {errors.shortDescription && (
+        <p className="text-red-600">{errors.shortDescription.message}</p>
+      )}
+
+      {/* Text Editor */}
+      <ReactQuill
+        value={editorContent}
+        onChange={setEditorContent}
+        theme="snow"
+        className="react-quill min-h-[300px] border border-gray-300 rounded mb-4"
+        style={{ backgroundColor: "#ffffff", color: "#000000" }}
+      />
+
+      {/* Action Buttons */}
+      <div className="flex justify-end space-x-2">
+        <button
+          type="button"
+          className="mt-4 px-4 py-2 border border-red-600 text-red-600 hover:text-white font-semibold rounded-md hover:bg-red-600"
+          onClick={handleDelete}
+          disabled={deleting}
+        >
+          {deleting ? "Deleting..." : "Delete File"}
+        </button>
+        <button
+          type="submit"
+          className="mt-4 px-4 py-2 border border-green-600 text-green-600 hover:text-white font-semibold rounded-md hover:bg-green-700"
+          disabled={loading}
+        >
+          {loading ? "Saving..." : "Save Changes"}
+        </button>
+      </div>
+    </form>
   );
 };
 
