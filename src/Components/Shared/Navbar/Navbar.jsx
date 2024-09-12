@@ -46,7 +46,7 @@ const Navbar = () => {
               key={item.href}
               href={item.href}
               className={`flex items-center space-x-2 ${
-                isActive(item.href) ? "text-[#70ad29]" : "text-gray-400"
+                isActive(item.href) ? "text-[#70ad29]" : "text-gray-400 hover:text-[#70ad29]"
               }`}
             >
               {item.icon}
@@ -67,8 +67,8 @@ const Navbar = () => {
             <Link
               key={item.href}
               href={item.href}
-              className={`flex items-center space-x-2 ${
-                isActive(item.href) ? "text-[#70ad29]" : "text-gray-400"
+              className={`flex  items-center space-x-2 ${
+                isActive(item.href) ? "text-[#70ad29] " : "text-gray-400 "
               }`}
               onClick={() => setMenuOpen(false)} // Close menu on click
             >
