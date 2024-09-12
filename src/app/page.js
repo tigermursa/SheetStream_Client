@@ -12,7 +12,7 @@ const Page = () => {
       </div>
 
       {/* Middle (Blogs Section) */}
-      <div className="col-span-8  p-6 bg-white">
+      <div className="col-span-8  p-20 pt-5 bg-gray-950">
         <BlogMainPage />
       </div>
 
