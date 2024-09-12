@@ -9,7 +9,7 @@ const ErrorUI = () => {
           Oops! Something went wrong
         </h2>
         <p className="text-lg mb-6">
-          We can't seem to find the page you're looking for. It may have been
+          We can&rsquo;t seem to find the page you&rsquo;re looking for. It may have been
           moved or deleted.
         </p>
         <button

@@ -40,3 +40,29 @@ SheetStream allows users to write blog posts in familiar environments like MS Wo
 
 This project was developed over three days, from September 10 to September 12. Refactoring and optimization are ongoing to enhance performance and usability.
 
+
+## Build Structure
+
+Route (app)                               Size     First Load JS
+┌ ○ /                                     186 B          99.3 kB
+├ ○ /_not-found                           137 B          87.4 kB
+├ ○ /blogs                                186 B          99.3 kB
+├ ● /blogs/[...id]                        290 B          92.6 kB
+├ ○ /edit                                 176 B          94.3 kB
+├ ƒ /edit/[...id]                         11.6 kB         115 kB
+└ ○ /upload                               1.24 kB        99.4 kB
++ First Load JS shared by all             87.3 kB
+  ├ chunks/23-3f0b21b86839fda7.js         31.6 kB
+  ├ chunks/fd9d1056-dece9939c5280cc6.js   53.6 kB
+  └ other shared chunks (total)           2.1 kB
+
+Route (pages)                             Size     First Load JS
+─ ○ /Upload/UploadingPage                 7.17 kB        86.3 kB
++ First Load JS shared by all             79.1 kB
+  ├ chunks/framework-bd7ad8ec63c6466b.js  44.8 kB
+  ├ chunks/main-a65a2876b21a7016.js       32.2 kB
+  └ other shared chunks (total)           2.08 kB
+
+○  (Static)   prerendered as static content
+●  (SSG)      prerendered as static HTML (uses getStaticProps)
+ƒ  (Dynamic)  server-rendered on demand

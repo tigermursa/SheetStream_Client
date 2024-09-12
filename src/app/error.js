@@ -1,9 +1,9 @@
-"use client"; // Error boundaries must be Client Components
+"use client";
 
 import ErrorUI from "@/Components/Ui/Error/ErrorUI";
 import { useEffect } from "react";
 
-export default function Error({ error, reset }) {
+export default function Error({ error }) {
   useEffect(() => {
     // Log the error to an error reporting service
     console.error(error);

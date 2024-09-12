@@ -5,7 +5,7 @@ import getAllBlogs from "@/lib/getAllBlogs";
 const EditFileMainPage = () => {
   const blogs = getAllBlogs();
 
-  if (blogs.data.length === 0) {
+  if (blogs?.data?.length === 0) {
     return (
       <div className="text-gray-100 h-screen flex justify-center items-center">
         <p>No files found to edit 🧐</p>
