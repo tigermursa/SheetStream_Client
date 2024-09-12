@@ -1,36 +1,46 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+Here’s an updated, professional version of your README:
 
-## Getting Started
+---
 
-First, run the development server:
+# SheetStream
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+**Client Site Hosted Link**: [SheetStream on Vercel](https://vercel.ssd)  
+**Server Repository**: [SheetStream Server on GitHub](https://github.com/tigermursa/SheetStream_Server)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## About the Project
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+SheetStream allows users to write blog posts in familiar environments like MS Word or Google Sheets, saving their content as `.docx` files. Users can then upload these files through an intuitive interface and manage their blogs without any need for coding. Once uploaded, the content can be easily edited and customized to fit the desired format and style for publication.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### Key Features:
 
-## Learn More
+- **File Upload**: Upload `.docx` files written in MS Word or Google Sheets to the platform.
+- **Edit Dashboard**: Once uploaded, you can modify the content using a built-in editor, adjusting the format and style before publishing.
+- **Image Management**: Upload up to two images from your local machine to enhance your blog posts.
+- **Custom Titles & Descriptions**: Add a blog title and a short description to complete your post.
+- **Easy Updates**: Not happy with how it looks? You can always revisit and update your post through the edit dashboard.
 
-To learn more about Next.js, take a look at the following resources:
+## Technologies Used
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Frontend:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- **Next.js 14**: Provides the foundation for server-side rendering and a responsive frontend.
+- **Tailwind CSS**: Enables rapid and responsive UI design.
+- **SWR & Next.js API Routes**: For efficient data fetching and server-client communication.
+- **React Hook Form**: Simplifies form handling for user inputs.
+- **React Icons**: Adds a variety of icons to enhance the UI.
+- **React Toastify**: Displays notifications for user interactions.
+- **Cloudinary**: Manages image uploads to streamline the media handling process.
+- **React Quill**: Rich text editor used for customizing blog content.
 
-## Deploy on Vercel
+### Backend:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **Express.js**: Powers the backend logic and API routes.
+- **TypeScript**: Ensures strong typing and error checking.
+- **Mongoose**: Facilitates database interactions with MongoDB.
+- **Mammoth**: Converts `.docx` files into HTML for easier content manipulation.
+- **Multer**: Handles file uploads to the server.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Project Timeline
+
+This project was developed over three days, from September 10 to September 12. Refactoring and optimization are ongoing to enhance performance and usability.
+
