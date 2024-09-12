@@ -1,7 +1,10 @@
-const BlogDetailsPage = () => {
+import BlogDetails from "@/Components/BlogDetails/BlogDetails";
+
+const BlogDetailsPage = ({ params }) => {
+  const blogId = params?.id;
   return (
     <div>
-      <BlogDetailsPage />
+      <BlogDetails blogId={blogId} />
     </div>
   );
 };

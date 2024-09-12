@@ -1,8 +1,7 @@
 import getSingleBlogs from "@/lib/getSingleBlog";
 import Image from "next/image";
 
-const NewsDetails = async ({ params }) => {
-  const blogId = params?.id;
+const BlogDetails = async ({ blogId }) => {
   const blog = await getSingleBlogs(blogId);
 
   return (
@@ -56,4 +55,4 @@ const NewsDetails = async ({ params }) => {
   );
 };
 
-export default NewsDetails;
+export default BlogDetails;
