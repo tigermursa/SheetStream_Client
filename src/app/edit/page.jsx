@@ -24,36 +24,37 @@ const EditFileMainPage = () => {
   if (!blogs)
     return (
       <div className="text-center text-white h-screen flex items-center justify-center">
-        Loading file...
+        Loading files...
       </div>
     );
-  if (error) return <div className="text-center">Failed to load file</div>;
-
   if (blogs.data.length === 0) {
     return (
       <div className="text-gray-100 h-screen flex justify-center items-center">
-        <p>No blogs found to edit 🧐</p>
+        <p>No files found to edit 🧐</p>
       </div>
     );
   }
 
   return (
-    <div className="p-4 space-y-4 bg-gray-900 h-screen">
-      {blogs.data.map((blog) => (
-        <div
-          key={blog._id}
-          className="border-gray-200 pb-4 flex gap-5 justify-center"
-        >
-          <div className="flex gap-8 border py-3 px-24 rounded-sm items-center">
-            <p>{blog.fileName}</p>
-            <Link href={`/edit/${blog._id}`}>
-              <p className="text-blue-500 text-sm flex items-center gap-1 border hover:border-blue-700 p-2 rounded-md">
-                <AiOutlineEdit /> Edit File
-              </p>
+    <div className="p-6 space-y-6 bg-gray-900 h-screen flex flex-col items-center">
+      <h1 className="text-white text-2xl font-bold mb-8">All Files</h1>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {blogs.data.map((blog) => (
+          <div
+            key={blog._id}
+            className="flex flex-col items-center justify-between bg-gray-800 text-white shadow-md hover:shadow-xl hover:bg-gray-700 transition-all duration-300 rounded-lg p-6 w-full max-w-xs"
+          >
+            <p className="truncate w-full text-lg font-medium mb-4">
+              {blog.fileName}
+            </p>
+            <Link href={`/edit/${blog._id}`} className="w-full">
+              <button className="w-full text-sm font-semibold text-blue-500 flex items-center justify-center gap-2 bg-gray-900 border border-blue-600 py-2 rounded-lg hover:bg-blue-600 hover:text-white transition-all duration-300">
+                <AiOutlineEdit className="text-lg" /> Edit File
+              </button>
             </Link>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   );
 };
