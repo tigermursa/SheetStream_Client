@@ -18,7 +18,7 @@ const BlogMainPage = async () => {
   }
 
   return (
-    <div className=" space-y-4 bg-white text-gray-900 overflow-auto">
+    <div className=" space-y-4 bg-white text-gray-900 overflow-auto pt-10">
       {blogs?.data?.map((blog) => {
         // Only render blog if it is online
         if (blog?.isOnline) {
