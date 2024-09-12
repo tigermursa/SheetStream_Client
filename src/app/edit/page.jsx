@@ -2,8 +2,8 @@ import Link from "next/link";
 import { AiOutlineEdit } from "react-icons/ai";
 import getAllBlogs from "@/lib/getAllBlogs";
 
-const EditFileMainPage = () => {
-  const blogs = getAllBlogs();
+const EditFileMainPage = async () => {
+  const blogs = await getAllBlogs();
 
   if (blogs?.data?.length === 0) {
     return (
@@ -13,7 +13,7 @@ const EditFileMainPage = () => {
     );
   }
 
-  console.log();
+  //console.log(blogs);
 
   return (
     <div className="p-6 space-y-6 bg-gray-900 h-screen flex flex-col items-center">
@@ -24,6 +24,13 @@ const EditFileMainPage = () => {
             key={blog?._id}
             className="flex flex-col items-center justify-between bg-gray-800 text-white shadow-md hover:shadow-xl hover:bg-gray-700 transition-all duration-300 rounded-lg p-6 w-full max-w-xs"
           >
+            <div className="w-full mb-2">
+              <div
+                className={`w-[30%]  h-3 rounded-full  mx-auto  ${
+                  blog?.isOnline ? "bg-green-600" : "bg-red-700"
+                }`}
+              ></div>
+            </div>
             <p className="truncate w-full text-lg font-medium mb-4">
               {blog?.fileName}
             </p>

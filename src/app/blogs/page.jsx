@@ -16,7 +16,7 @@ const BlogMainPage = async () => {
       </div>
     );
   }
-
+//console.log(blogs)
   return (
     <div className=" space-y-4 bg-white text-gray-900 overflow-auto pt-10">
       {blogs?.data?.map((blog) => {
