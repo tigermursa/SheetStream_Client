@@ -1,10 +1,6 @@
 export default async function getAllBlogs() {
   try {
     const result = await fetch("http://localhost:5000/api/v1/files/files", {
-      method: "GET",
-      headers: {
-        "Cache-Control": "no-store",
-      },
       next: {
         revalidate: 30,
       },
