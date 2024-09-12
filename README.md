@@ -1,7 +1,3 @@
-Here’s an updated, professional version of your README:
-
----
-
 # SheetStream
 
 **Client Site Hosted Link**: [SheetStream on Vercel](https://vercel.ssd)  
