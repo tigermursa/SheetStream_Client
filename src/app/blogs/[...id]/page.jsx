@@ -3,7 +3,12 @@ import getAllBlogs from "@/lib/getAllBlogs";
 import getSingleBlogs from "@/lib/getSingleBlog";
 import Image from "next/image";
 
-// SSR CODE ... 
+export const metadata = {
+  title: "SheetStream | Blogs Details",
+  description: "Upload blogs with docx file input",
+};
+
+// SSR CODE ...
 export const generateStaticParams = async () => {
   const res = await getAllBlogs();
   const blogs = await res?.data;
