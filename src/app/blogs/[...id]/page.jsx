@@ -23,7 +23,7 @@ const BlogDetails = async ({ params }) => {
   const blog = await getSingleBlogs(blogId);
 
   return (
-    <div className=" bg-white text-gray-800 ">
+    <div className=" bg-gray-950 text-gray-200 ">
       <div className="w-[50%] mx-auto pt-10 pb-10">
         {/* Conditional rendering for imageOne */}
         {blog?.data?.imageOne && (

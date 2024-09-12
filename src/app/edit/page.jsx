@@ -3,7 +3,10 @@ import { AiOutlineEdit } from "react-icons/ai";
 import getAllBlogs from "@/lib/getAllBlogs";
 
 const EditFileMainPage = async () => {
-  const blogs = await getAllBlogs();
+  const blogs = await getAllBlogs({
+    cache: "no-store",
+    caches: "no-cache",
+  });
 
   if (blogs?.data?.length === 0) {
     return (

@@ -1,4 +1,4 @@
-"use client";
+"use client"; // Error boundaries must be Client Components
 
 import ErrorUI from "@/Components/Ui/Error/ErrorUI";
 import { useEffect } from "react";

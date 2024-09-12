@@ -6,7 +6,11 @@ import { format } from "date-fns";
 import { MdDateRange } from "react-icons/md";
 
 const BlogMainPage = async () => {
-  const blogs = await getAllBlogs();
+  const blogs = await getAllBlogs({
+    next: {
+      revalidate: 120,
+    },
+  });
 
   // Show message if there are no blogs
   if (!blogs?.data || blogs.data.length === 0) {
@@ -16,17 +20,14 @@ const BlogMainPage = async () => {
       </div>
     );
   }
-//console.log(blogs)
+  //console.log(blogs)
   return (
-    <div className=" space-y-4 bg-white text-gray-900 overflow-auto pt-10">
+    <div className=" space-y-4 bg-white text-gray-900 overflow-auto">
       {blogs?.data?.map((blog) => {
         // Only render blog if it is online
         if (blog?.isOnline) {
           return (
-            <div
-              key={blog._id}
-              className="border-gray-200 pb-4 w-[50%] mx-auto mb-20"
-            >
+            <div key={blog._id} className="border-gray-200 pb-4  mb-20">
               {/* Render Image One if available */}
               {blog?.imageOne && (
                 <div>

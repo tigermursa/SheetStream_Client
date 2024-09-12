@@ -1,9 +1,7 @@
-export default async function getAllBlogs() {
+export default async function getAllBlogs(fetchOptions = {}) {
   try {
     const result = await fetch("http://localhost:5000/api/v1/files/files", {
-      next: {
-        revalidate: 30,
-      },
+      ...fetchOptions,
     });
     if (!result.ok) {
       throw new Error(`HTTP error! status: ${result.status}`);
