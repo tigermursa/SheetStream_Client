@@ -7,8 +7,11 @@ const Recommended = async () => {
     cache: "no-store",
   });
 
-  // Filter blogs to only include those that are online
-  const onlineBlogs = blogs?.data?.filter((blog) => blog?.isOnline) || [];
+  // Filter, sort, and limit blogs
+  const onlineBlogs = (blogs?.data || [])
+    .filter((blog) => blog?.isOnline)
+    .sort((a, b) => new Date(b.uploadDate) - new Date(a.uploadDate)) // Sort by uploadDate
+    .slice(0, 7); // Get top 7 blogs
 
   return (
     <div>
@@ -16,7 +19,7 @@ const Recommended = async () => {
         onlineBlogs.map((blog, index) => (
           <div key={index} className="">
             <Link href={`/blogs/${blog?._id}`}>
-              <div className="mt-3 text-sm flex gap-3 items-center justify-center">
+              <div className="mt-5 text-sm flex gap-3 items-center justify-center">
                 <Image
                   src={blog?.imageOne}
                   alt={blog?.title}
@@ -32,7 +35,7 @@ const Recommended = async () => {
           </div>
         ))
       ) : (
-        <p>No online blogs available</p> // Optional message if no online blogs are available
+        <p>No online blogs available</p>
       )}
     </div>
   );
