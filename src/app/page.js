@@ -1,15 +1,22 @@
 import Search from "@/Components/Search/Search";
 import BlogMainPage from "./blogs/page";
 import Quotes from "@/Components/Quotes/Quotes";
+import Recommended from "@/Components/Recommended/Recommended";
 
 const Page = () => {
   return (
     <div className="grid grid-cols-12 ">
       {/* Left side (Other Content) */}
-      <div className="col-span-2 bg-gray-900 text-white p-4 sticky border-r border-gray-700">
+      <div className="col-span-2 bg-gray-900 text-white p-4 sticky top-4 border-r border-gray-700">
         <div className="sticky top-4">
-          <h2 className="text-xl font-semibold mb-4">Quotes..</h2>
-          <Quotes />
+          <div>
+            <h2 className="text-lg font-semibold mb-4">Quotes..</h2>
+            <Quotes />
+          </div>
+          <div>
+            <h2 className="text-lg font-medium mb-2 mt-14">Recommended</h2>
+            <Recommended />
+          </div>
         </div>
       </div>
 
