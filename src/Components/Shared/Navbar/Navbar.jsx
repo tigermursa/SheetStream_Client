@@ -23,9 +23,9 @@ const Navbar = () => {
 
   return (
     <nav className="bg-gray-800 text-white shadow-md">
-      <div className="container mx-auto flex justify-between items-center p-4">
+      <div className="container  flex justify-start items-center p-4 gap-12">
         {/* Logo Section */}
-        <div className="text-2xl font-bold">
+        <div className="text-3xl font-bold">
           <Link href="/" className="text-primary">
             SheetStream
           </Link>
@@ -40,13 +40,13 @@ const Navbar = () => {
         </button>
 
         {/* Navigation Items for Desktop */}
-        <div className="hidden lg:flex space-x-10">
+        <div className="hidden lg:flex gap-8">
           {navItems.map((item) => (
             <Link
               key={item.href}
               href={item.href}
-              className={`flex items-center space-x-2 ${
-                isActive(item.href) ? "text-[#70ad29]" : "text-gray-400 hover:text-[#70ad29]"
+              className={`flex items-center space-x-2 text-sm ${
+                isActive(item.href) ? "text-primaryLight" : "text-gray-400 hover:text-primaryDark"
               }`}
             >
               {item.icon}
