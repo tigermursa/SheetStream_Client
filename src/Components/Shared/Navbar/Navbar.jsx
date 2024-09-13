@@ -26,7 +26,7 @@ const Navbar = () => {
       <div className="container mx-auto flex justify-between items-center p-4">
         {/* Logo Section */}
         <div className="text-2xl font-bold">
-          <Link href="/" className="text-[#70ad29]">
+          <Link href="/" className="text-primary">
             SheetStream
           </Link>
         </div>

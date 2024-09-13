@@ -4,7 +4,7 @@ const Footer = () => {
   return (
     <footer className="bg-gray-800 text-white p-6 z-40  pt-10">
       <div className="container mx-auto flex flex-col items-center">
-        <h2 className="text-2xl font-bold mb-2 text-[#70ad29]">SheetStream</h2>
+        <h2 className="text-2xl font-bold mb-2 text-primary]">SheetStream</h2>
         <p className="text-sm mb-4">
           © 2024 Mursalin Hossain. All rights reserved.
         </p>
