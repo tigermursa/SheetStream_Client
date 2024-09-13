@@ -12,11 +12,7 @@ const font = Open_Sans({
 });
 
 const BlogMainPage = async () => {
-  const blogs = await getAllBlogs({
-    next: {
-      revalidate: 120,
-    },
-  });
+  const blogs = await getAllBlogs();
 
   // Show message if there are no blogs
   if (!blogs?.data || blogs.data.length === 0) {
