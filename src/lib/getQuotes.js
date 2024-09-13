@@ -1,7 +1,7 @@
 export default async function getQuotes() {
   try {
     const result = await fetch("https://api.adviceslip.com/advice", {
-      cache: "no-store",
+      cache: "no-cache",
     });
     if (!result.ok) {
       throw new Error(`HTTP error! status: ${result.status}`);
