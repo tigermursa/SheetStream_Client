@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { format } from "date-fns";
 import { MdDateRange } from "react-icons/md";
-import { Open_Sans } from "@next/font/google";
+import { Open_Sans } from "next/font/google";
 
 const font = Open_Sans({
   subsets: ["latin"],
