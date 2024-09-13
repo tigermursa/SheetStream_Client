@@ -1,3 +1,4 @@
+import Search from "@/Components/Search/Search";
 import BlogMainPage from "./blogs/page";
 
 const Page = () => {
@@ -19,12 +20,7 @@ const Page = () => {
       {/* Right side (Sidebar/Search Bar) */}
       <div className="col-span-2 bg-gray-900 text-white p-4 border-l border-gray-700">
         <div className="sticky top-4">
-          <h2 className="text-xl font-bold mb-4">Search Bar</h2>
-          <input
-            type="text"
-            placeholder="Search..."
-            className="w-full p-2 rounded-md bg-gray-700 text-white focus:outline-none"
-          />
+          <Search />
         </div>
       </div>
     </div>
