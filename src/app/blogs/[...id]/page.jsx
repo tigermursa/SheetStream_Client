@@ -30,7 +30,7 @@ const BlogDetails = async ({ params }) => {
 
   return (
     <div className={font?.className}>
-      <div className=" bg-gray-950 text-gray-200 ">
+      <div className=" bg-gray-900 text-gray-200 ">
         <div className="w-[50%] mx-auto pt-10 pb-10">
           {/* Conditional rendering for imageOne */}
           {blog?.data?.imageOne && (
