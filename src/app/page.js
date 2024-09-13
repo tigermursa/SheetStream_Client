@@ -1,5 +1,6 @@
 import Search from "@/Components/Search/Search";
 import BlogMainPage from "./blogs/page";
+import Quotes from "@/Components/Quotes/Quotes";
 
 const Page = () => {
   return (
@@ -7,8 +8,8 @@ const Page = () => {
       {/* Left side (Other Content) */}
       <div className="col-span-2 bg-gray-900 text-white p-4 sticky border-r border-gray-700">
         <div className="sticky top-4">
-          <h2 className="text-xl font-bold mb-4">Left Sidebar</h2>
-          <p>Some content goes here...</p>
+          <h2 className="text-xl font-semibold mb-4">Quotes..</h2>
+          <Quotes />
         </div>
       </div>
 
