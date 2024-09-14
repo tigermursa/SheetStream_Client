@@ -32,14 +32,12 @@ const Search = () => {
         placeholder="Search for blogs..."
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
-        className=" w-full p-4 rounded-lg focus:outline-none font-sans font-semibold"
+        className=" w-full p-4 rounded-lg focus:outline-none font-sans font-semibold  text-secondaryDark border"
       />
-      <ul className="text-white flex flex-col gap-3 text-xs p-2">
+      <ul className="flex flex-col gap-3 text-xs p-2">
         {results?.data?.map((file) => (
           <Link href={`/blogs/${file?._id}`} key={file?._id}>
-            <li className="mt-3 cursor-pointer hover:text-primaryLight">
-              {file.title}
-            </li>
+            <li className="mt-3 cursor-pointer hover:text-blue-400">{file.title}</li>
           </Link>
         ))}
       </ul>
