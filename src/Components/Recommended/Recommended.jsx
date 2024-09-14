@@ -27,7 +27,7 @@ const Recommended = async () => {
                   height={40}
                   className="rounded-sm"
                 />
-                <p className="truncate hover:text-primaryLight cursor-pointer">
+                <p className="truncate hover:text-blue-400 cursor-pointer">
                   {blog.title}
                 </p>
               </div>
