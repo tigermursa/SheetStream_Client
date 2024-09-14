@@ -14,7 +14,7 @@ const Page = () => {
             <Quotes />
           </div>
           <div>
-            <h2 className="text-lg font-medium mb-2 mt-14">Recommended</h2>
+            <h2 className="text-sm font-medium mb-2 mt-14">Recommended blogs</h2>
             <Recommended />
           </div>
         </div>
