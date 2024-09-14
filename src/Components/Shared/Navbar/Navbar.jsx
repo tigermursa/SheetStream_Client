@@ -3,6 +3,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FaHome, FaUpload, FaEdit, FaBars, FaTimes } from "react-icons/fa";
+import ThemeToggleButton from "@/Components/Theme/Theme";
 
 const navItems = [
   { name: "Home", href: "/", icon: <FaHome size={20} /> },
@@ -54,6 +55,7 @@ const Navbar = () => {
             </Link>
           ))}
         </div>
+        <ThemeToggleButton/>
       </div>
 
       {/* Mobile Menu */}

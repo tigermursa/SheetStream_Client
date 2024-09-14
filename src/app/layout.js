@@ -41,7 +41,7 @@ export default function RootLayout({ children }) {
           pauseOnHover
           theme="colored"
         />
-        {children}
+        <div>{children}</div>
         <Footer />
       </body>
     </html>

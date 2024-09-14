@@ -7,7 +7,7 @@ const Page = () => {
   return (
     <div className="grid grid-cols-12 ">
       {/* Left side (Other Content) */}
-      <div className="col-span-2 bg-gray-900 text-white p-4 sticky top-4 border-r border-gray-700">
+      <div className="col-span-2  p-4 sticky top-4 border-r border-gray-700">
         <div className="sticky top-4">
           <div>
             <h2 className="text-lg font-semibold mb-4">Quotes..</h2>
@@ -21,12 +21,12 @@ const Page = () => {
       </div>
 
       {/* Middle (Blogs Section) */}
-      <div className="col-span-8  p-20 pt-5 bg-gray-900">
+      <div className="col-span-8  p-20 pt-5 ">
         <BlogMainPage />
       </div>
 
       {/* Right side (Sidebar/Search Bar) */}
-      <div className="col-span-2 bg-gray-900 text-gray-950 p-4 border-l border-gray-700 ">
+      <div className="col-span-2  p-4 border-l border-gray-700 ">
         <div className="sticky top-4">
           <Search />
         </div>

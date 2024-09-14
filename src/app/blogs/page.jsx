@@ -25,7 +25,7 @@ const BlogMainPage = async () => {
   //console.log(blogs)
   return (
     <div className={font?.className}>
-      <div className=" space-y-4 bg-gray-900 text-gray-200 overflow-auto">
+      <div className=" space-y-4  overflow-auto">
         {blogs?.data?.map((blog) => {
           // Only render blog if it is online
           if (blog?.isOnline) {
