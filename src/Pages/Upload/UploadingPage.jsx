@@ -89,7 +89,7 @@ const UploadFile = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-900">
+    <div className="min-h-screen flex items-center justify-center ">
       <div
         className={`bg-gray-800 p-14 border border-separate rounded-xl shadow-lg w-full max-w-md text-center relative transition-all ${
           dragActive ? "border-2 border-indigo-500 bg-gray-700" : ""
