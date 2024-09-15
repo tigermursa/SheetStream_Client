@@ -32,7 +32,7 @@ const UploadFile = () => {
 
   const handleFileUpload = async () => {
     if (!selectedFile) {
-      alert("Please select a DOCX file first.");
+      toast.error("Please select a DOCX file first.");
       return;
     }
 
