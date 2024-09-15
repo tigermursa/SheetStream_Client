@@ -16,7 +16,7 @@ const EditFileMainPage = async () => {
   //console.log(blogs);
 
   return (
-    <div className="p-6 space-y-6 bg-gray-900 h-screen flex flex-col items-center">
+    <div className="p-6 space-y-6 h-screen flex flex-col items-center">
       <h1 className="text-white text-2xl font-bold mb-8">All Files</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {blogs?.data?.map((blog) => (
