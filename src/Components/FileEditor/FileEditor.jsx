@@ -2,21 +2,30 @@
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import useSWR, { mutate } from "swr";
-import dynamic from "next/dynamic";
 import { fetcher } from "@/lib/fetcher";
 import { toast } from "react-toastify";
 import Image from "next/image";
-import "./FileEditor.css";
 import { useRouter } from "next/navigation";
 
 // Dynamically import ReactQuill to disable SSR
+import dynamic from "next/dynamic";
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 import "react-quill/dist/quill.snow.css"; // Quill styles
+import "./FileEditor.css";
 
 const DEFAULT_IMAGE_URL =
   "https://www.creativefabrica.com/wp-content/uploads/2021/04/05/Photo-Image-Icon-Graphics-10388619-1-1-580x386.jpg";
 
 const FileEditor = ({ fileId }) => {
+  useEffect(() => {
+    // Import and configure Quill only after the component has mounted
+    import("quill").then((Quill) => {
+      const SizeStyle = Quill.default.import("attributors/style/size");
+      SizeStyle.whitelist = ["8px", "12px", "16px", "24px", "32px", "40px"];
+      Quill.default.register(SizeStyle, true);
+    });
+  }, []);
+
   const router = useRouter();
 
   // Form setup using React Hook Form
@@ -195,7 +204,7 @@ const FileEditor = ({ fileId }) => {
     >
       {/* Toggle button with loading spinner */}
       <label className="block mb-2 font-medium text-gray-900">
-        {isOnline ? <p>Online</p>:<p>offline</p>}
+        {isOnline ? <p>Online</p> : <p>offline</p>}
       </label>
       <button
         type="button"
@@ -298,7 +307,37 @@ const FileEditor = ({ fileId }) => {
         value={editorContent}
         onChange={setEditorContent}
         theme="snow"
-        className="react-quill min-h-[300px] border border-gray-300 rounded mb-4"
+        modules={{
+          toolbar: [
+            [{ font: [] }],
+            [
+              {
+                size: ["8px", "12px", "16px", "24px", "32px", "40px"], // Define sizes directly
+              },
+            ],
+            ["bold", "italic", "underline", "strike"],
+            [{ color: [] }, { background: [] }],
+            [{ list: "ordered" }, { list: "bullet" }],
+            ["link", "image"],
+            ["clean"],
+          ],
+        }}
+        formats={[
+          "font",
+          "size",
+          "bold",
+          "italic",
+          "underline",
+          "strike",
+          "color",
+          "background",
+          "list",
+          "bullet",
+          "link",
+          "image",
+          "clean",
+        ]}
+        className="react-quill min-h-[300px] border border-gray-300 rounded"
         style={{ backgroundColor: "#ffffff", color: "#000000" }}
       />
 
