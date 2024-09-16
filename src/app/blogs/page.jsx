@@ -25,12 +25,12 @@ const BlogMainPage = async () => {
   //console.log(blogs)
   return (
     <div className={font?.className}>
-      <div className=" space-y-4  overflow-auto">
+      <div className=" space-y-4  overflow-auto ">
         {blogs?.data?.map((blog) => {
           // Only render blog if it is online
           if (blog?.isOnline) {
             return (
-              <div key={blog._id} className="border-gray-200 pb-4  mb-20">
+              <div key={blog._id} className="border-gray-200 pb-4 mb-5 lg:mb-20">
                 {/* Render Image One if available */}
                 {blog?.imageOne && (
                   <div>
@@ -47,8 +47,8 @@ const BlogMainPage = async () => {
                 {/* Render Upload Date */}
                 {blog?.uploadDate && (
                   <div>
-                    <h2 className="text-lg mb-10 font-semibold flex items-center gap-1">
-                      <MdDateRange size={25} />
+                    <h2 className="text-sm lg:ext-lg mb-10 font-semibold flex items-center gap-1">
+                      <MdDateRange/>
                       {format(
                         new Date(blog.uploadDate),
                         "d MMMM yyyy 'at' h:mm a"
@@ -60,7 +60,7 @@ const BlogMainPage = async () => {
                 {/* Render Title */}
                 {blog?.title && (
                   <div>
-                    <h2 className="text-3xl font-extrabold mb-2 ">
+                    <h2 className="text-lg md:text-xl lg:text-3xl font-extrabold mb-2 ">
                       {blog.title}
                     </h2>
                   </div>
@@ -69,7 +69,7 @@ const BlogMainPage = async () => {
                 {/* Render Short Description */}
                 {blog?.shortDescription && (
                   <div>
-                    <h2 className="text-lg font-normal  mb-6">
+                    <h2 className="text-sm lg:ext-lg font-normal  mb-6">
                       {blog.shortDescription}...
                     </h2>
                   </div>
