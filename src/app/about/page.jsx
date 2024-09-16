@@ -3,7 +3,7 @@ import { FaFileAlt, FaHistory, FaCheckCircle } from "react-icons/fa";
 const AboutPage = () => {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center  px-4 py-10">
-      <div className="max-w-4xl w-full bg-white shadow-lg rounded-lg p-6 md:p-8">
+      <div className="max-w-4xl w-full bg-white md:shadow-lg rounded-lg p-6 md:p-8">
         <h2 className="text-2xl md:text-4xl font-extrabold text-center text-primary mb-6 md:mb-8">
           SheetStream v1.0.02
         </h2>

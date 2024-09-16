@@ -2,7 +2,14 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { FaHome, FaUpload, FaEdit, FaBars, FaTimes, FaInfoCircle} from "react-icons/fa";
+import {
+  FaHome,
+  FaUpload,
+  FaEdit,
+  FaBars,
+  FaTimes,
+  FaInfoCircle,
+} from "react-icons/fa";
 import ButtonToggleLightAndDark from "@/Components/Ui/Buttons/ButtonToggleLightAndDark";
 
 const navItems = [
@@ -27,20 +34,22 @@ const Navbar = () => {
     <nav className="bg-gray-800 text-white shadow-md">
       <div className="flex items-center justify-between ms-5 me-5">
         <div className="container  flex justify-start items-center p-4 gap-12">
-          {/* Logo Section */}
-          <div className="text-3xl font-bold">
-            <Link href="/" className="text-primary">
-              SheetStream
-            </Link>
-          </div>
+          <div className="w-full flex justify-between items-center">
+            {/* Logo Section */}
+            <div className="text-3xl font-bold">
+              <Link href="/" className="text-primary">
+                SheetStream
+              </Link>
+            </div>
 
-          {/* Mobile Menu Toggle */}
-          <button
-            className="text-2xl lg:hidden"
-            onClick={() => setMenuOpen(!menuOpen)}
-          >
-            {menuOpen ? <FaTimes /> : <FaBars />}
-          </button>
+            {/* Mobile Menu Toggle */}
+            <button
+              className="text-2xl lg:hidden "
+              onClick={() => setMenuOpen(!menuOpen)}
+            >
+              {menuOpen ? <FaTimes /> : <FaBars />}
+            </button>
+          </div>
 
           {/* Navigation Items for Desktop */}
           <div className="hidden lg:flex gap-8">
@@ -60,18 +69,21 @@ const Navbar = () => {
             ))}
           </div>
         </div>
-        <ButtonToggleLightAndDark />
+        {/* dark mood button component */}
+        <div className="hidden md:block">
+          <ButtonToggleLightAndDark />
+        </div>
       </div>
 
       {/* Mobile Menu */}
       <div
-        className={`lg:hidden transition-all duration-300 ease-in-out transform origin-top ${
+        className={`lg:hidden transition-all  duration-300 ease-in-out transform origin-top ${
           menuOpen
             ? "max-h-[400px] opacity-100 scale-y-100"
             : "max-h-0 opacity-0 scale-y-0"
         } overflow-hidden`}
       >
-        <div className="flex flex-col space-y-4 bg-gray-800 p-4">
+        <div className="flex flex-col space-y-4 bg-gray-800 p-4 ">
           {navItems.map((item) => (
             <Link
               key={item.href}
@@ -85,6 +97,10 @@ const Navbar = () => {
               <span>{item.name}</span>
             </Link>
           ))}
+        </div>
+        {/* dark mood button component */}
+        <div className=" md:hidden p-4 ">
+          <ButtonToggleLightAndDark />
         </div>
       </div>
     </nav>
