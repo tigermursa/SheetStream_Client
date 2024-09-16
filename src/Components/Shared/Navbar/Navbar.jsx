@@ -34,7 +34,7 @@ const Navbar = () => {
     <nav className="bg-gray-800 text-white shadow-md">
       <div className="flex items-center justify-between ms-5 me-5">
         <div className="container  flex justify-start items-center p-4 gap-12">
-          <div className="w-full md:w-auto flex justify-between  items-center ">
+          <div className="w-full lg:w-auto flex justify-between  items-center ">
             {/* Logo Section */}
             <div className="text-3xl font-bold">
               <Link href="/" className="text-primary">
