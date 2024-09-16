@@ -2,13 +2,14 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { FaHome, FaUpload, FaEdit, FaBars, FaTimes } from "react-icons/fa";
+import { FaHome, FaUpload, FaEdit, FaBars, FaTimes, FaInfoCircle} from "react-icons/fa";
 import ButtonToggleLightAndDark from "@/Components/Ui/Buttons/ButtonToggleLightAndDark";
 
 const navItems = [
   { name: "Home", href: "/", icon: <FaHome size={20} /> },
   { name: "Upload File", href: "/upload", icon: <FaUpload size={20} /> },
   { name: "Edit", href: "/edit", icon: <FaEdit size={20} /> },
+  { name: "About", href: "/about", icon: <FaInfoCircle size={20} /> },
 ];
 
 const Navbar = () => {

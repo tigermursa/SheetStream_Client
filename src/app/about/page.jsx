@@ -2,43 +2,50 @@ import { FaFileAlt, FaHistory, FaCheckCircle } from "react-icons/fa";
 
 const AboutPage = () => {
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center px-4 py-10">
-      <div className="max-w-4xl w-full bg-white shadow-lg rounded-lg p-8">
-        <h2 className="text-3xl font-bold text-center text-primary mb-6">
+    <div className="min-h-screen flex flex-col items-center justify-center  px-4 py-10">
+      <div className="max-w-4xl w-full bg-white shadow-lg rounded-lg p-6 md:p-8">
+        <h2 className="text-2xl md:text-4xl font-extrabold text-center text-primary mb-6 md:mb-8">
           SheetStream v1.0.02
         </h2>
-        <p className="text-lg text-center text-secondary mb-4">
-          Input your doc and it&lsquo;s live on our website!
+        <p className="text-base md:text-xl text-center text-secondary mb-4 md:mb-6">
+          Input your document, and it’s live on our website!
         </p>
 
-        <div className="space-y-6">
-          <div className="flex items-start">
-            <FaFileAlt className="text-primary text-3xl mr-4" />
-            <p className="text-gray-700">
-              SheetStream is essentially a blogging platform where bloggers can
-              upload their blogs as DOCX files and edit them easily.
+        <div className="space-y-8">
+          {/* First Section */}
+          <div className="flex flex-col md:flex-row items-start space-y-4 md:space-y-0 md:space-x-4">
+            <div className="bg-primary text-white p-3 md:p-4 rounded-full flex-shrink-0">
+              <FaFileAlt className="text-2xl md:text-4xl" />
+            </div>
+            <p className="text-sm md:text-lg text-gray-800 leading-relaxed">
+              <strong className="text-secondary">SheetStream</strong> is a blogging platform where bloggers can upload their blogs as DOCX files and edit them easily. It offers a smooth user experience while maintaining the integrity of your content.
             </p>
           </div>
-          <div className="flex items-start">
-            <FaHistory className="text-primary text-3xl mr-4" />
-            <p className="text-gray-700">
-              <strong>History of Creating this Website:</strong> In my office
-              project, we needed a news section where admins could post news
-              like blogs. Initially, I tried allowing the backend to process
-              PDF/DOCX files and display them directly. However, there were
-              limitations in achieving this fully for free. So, I developed
-              SheetStream to convert DOCX files to HTML and then update them
-              using a React Quill text editor.
+
+          {/* Second Section */}
+          <div className="flex flex-col md:flex-row items-start space-y-4 md:space-y-0 md:space-x-4">
+            <div className="bg-primary text-white p-3 md:p-4 rounded-full flex-shrink-0">
+              <FaHistory className="text-2xl md:text-4xl" />
+            </div>
+            <p className="text-sm md:text-lg text-gray-800 leading-relaxed">
+              <strong className="text-secondary">History of Creating this Website:</strong> This project started from a need in my office. We had a news section where admins wanted to post news like blogs. Initially, I tried processing PDF/DOCX files and displaying them directly. Due to limitations in doing this for free, I created SheetStream to convert DOCX files to HTML and edit them using a rich text editor like React Quill.
             </p>
           </div>
-          <div className="flex items-start">
-            <FaCheckCircle className="text-primary text-3xl mr-4" />
-            <p className="text-gray-700">
-              <strong>Project Goals:</strong> Build an authentication system
-              using Node.js, utilize Next.js with SSR, SSG, and CSR, and create
-              a fully responsive, production-level application with both
-              frontend and backend implementations.
-            </p>
+
+          {/* Third Section - Goals as point table */}
+          <div className="flex flex-col md:flex-row items-start space-y-4 md:space-y-0 md:space-x-4">
+            <div className="bg-primary text-white p-3 md:p-4 rounded-full flex-shrink-0">
+              <FaCheckCircle className="text-2xl md:text-4xl" />
+            </div>
+            <div>
+              <p className="text-sm md:text-lg text-gray-800 font-semibold mb-2">Project Goals:</p>
+              <ul className="list-disc list-inside text-sm md:text-lg text-gray-800 leading-relaxed">
+                <li>Build an authentication system using Node.js</li>
+                <li>Utilize Next.js with SSR, SSG, and CSR</li>
+                <li>Create a fully responsive, production-level app</li>
+                <li>Develop a robust backend and frontend</li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
