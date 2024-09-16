@@ -44,9 +44,11 @@ const FileEditor = ({ fileId }) => {
   const [imageTwoPreview, setImageTwoPreview] = useState(DEFAULT_IMAGE_URL);
   const [isOnline, setIsOnline] = useState(false); // Default to false
   const [isToggling, setIsToggling] = useState(false); // For toggle loading state
+  const BASE_URL = "https://sheetstream-server.vercel.app";
 
+  //! (1)
   const { data, error, isLoading } = useSWR(
-    `http://localhost:5000/api/v1/files/single/${fileId}`,
+    `${BASE_URL}/api/v1/files/single/${fileId}`,
     fetcher
   );
 
@@ -96,9 +98,10 @@ const FileEditor = ({ fileId }) => {
   const onSubmit = async (formData) => {
     if (fileId) {
       setLoading(true);
+      //! (2)
       try {
         const response = await fetch(
-          `http://localhost:5000/api/v1/files/update/${fileId}`,
+          `${BASE_URL}/api/v1/files/update/${fileId}`,
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -113,7 +116,7 @@ const FileEditor = ({ fileId }) => {
 
         if (response.ok) {
           toast.success("Content updated successfully!");
-          mutate(`http://localhost:5000/api/v1/files/single/${fileId}`);
+          mutate(`${BASE_URL}/api/v1/files/single/${fileId}`);
         } else {
           toast.error("Failed to update file");
         }
@@ -133,17 +136,18 @@ const FileEditor = ({ fileId }) => {
       if (!confirmDelete) return;
 
       setDeleting(true);
+      //! (3)
       try {
         const response = await fetch(
-          `http://localhost:5000/api/v1/files/delete/${fileId}`,
+          `${BASE_URL}/api/v1/files/delete/${fileId}`,
           {
             method: "DELETE",
           }
         );
-
+        //! (4)
         if (response.ok) {
           toast.success("File deleted successfully!");
-          mutate(`http://localhost:5000/api/v1/files/single/${fileId}`);
+          mutate(`${BASE_URL}/api/v1/files/single/${fileId}`);
           router.push("/edit");
         } else {
           toast.error("Failed to delete file");
@@ -159,9 +163,10 @@ const FileEditor = ({ fileId }) => {
   // Function to toggle online status using SWR mutate
   const toggleIsOnline = async () => {
     setIsToggling(true); // Start loading state for toggle
+    //! (5)
     try {
       const response = await fetch(
-        `http://localhost:5000/api/v1/files/toggle/isOnline/${fileId}`,
+        `${BASE_URL}/api/v1/files/toggle/isOnline/${fileId}`,
         {
           method: "PATCH",
           headers: { "Content-Type": "application/json" },
@@ -180,7 +185,7 @@ const FileEditor = ({ fileId }) => {
       toast.error("Error toggling online status");
     } finally {
       setIsToggling(false); // End loading state
-      mutate(`http://localhost:5000/api/v1/files/single/${fileId}`); // Fetch latest data
+      mutate(`${BASE_URL}/api/v1/files/single/${fileId}`); // Fetch latest data
     }
   };
 

@@ -11,7 +11,7 @@ const UploadFile = () => {
 
   // Use SWR to fetch the list of files
   const { mutate } = useSWR(
-    "http://localhost:5000/api/v1/files/files",
+    "https://sheetstream-server.vercel.app/api/v1/files/files",
     fetcher
   );
 
@@ -41,7 +41,7 @@ const UploadFile = () => {
 
     try {
       const response = await fetch(
-        "http://localhost:5000/api/v1/files/upload",
+        "https://sheetstream-server.vercel.app/api/v1/files/upload",
         {
           method: "POST",
           body: formData,

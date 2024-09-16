@@ -1,7 +1,7 @@
 export default async function getSingleBlogs(id) {
   try {
     const response = await fetch(
-      `http://localhost:5000/api/v1/files/single/${id}`
+      `https://sheetstream-server.vercel.app/api/v1/files/single/${id}`
     );
 
     if (!response.ok) {

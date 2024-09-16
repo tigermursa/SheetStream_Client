@@ -10,7 +10,7 @@ const Search = () => {
   // Use SWR hook
   const { data: results, error } = useSWR(
     searchQuery
-      ? `http://localhost:5000/api/v1/files/search?q=${searchQuery}`
+      ? `https://sheetstream-server.vercel.app/api/v1/files/search?q=${searchQuery}`
       : null,
     fetcher,
     { refreshInterval: 0 } // Avoid auto-refreshing
