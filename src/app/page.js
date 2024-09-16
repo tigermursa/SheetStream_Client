@@ -28,7 +28,7 @@ const Page = () => {
       </div>
 
       {/* Right side (Sidebar/Search Bar) */}
-      <div className="col-span-2  p-4 border-l border-gray-700 hidden lg:block">
+      <div className="col-span-2  md:p-4 border-l border-gray-700 hidden lg:block">
         <div className="sticky top-4">
           <Search />
         </div>

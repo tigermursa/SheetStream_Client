@@ -22,7 +22,7 @@ const Search = () => {
 
   return (
     <div>
-      <div className="flex items-center text-primaryDark font-semibold  gap-1 mb-3 p-2 text-xl">
+      <div className="flex items-center text-primaryDark font-semibold  gap-1 mb-3 p-2  md:text-sm xl:text-xl">
         <ImSearch />
         <p>Search Blog</p>
       </div>
@@ -32,12 +32,14 @@ const Search = () => {
         placeholder="Search for blogs..."
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
-        className=" w-full p-4 rounded-lg focus:outline-none font-sans font-semibold  text-secondaryDark border"
+        className=" w-full p-2 xl:p-4 rounded-lg focus:outline-none font-sans font-semibold  text-secondaryDark border "
       />
       <ul className="flex flex-col gap-3 text-xs p-2">
         {results?.data?.map((file) => (
           <Link href={`/blogs/${file?._id}`} key={file?._id}>
-            <li className="mt-3 cursor-pointer hover:text-blue-400">{file.title}</li>
+            <li className="mt-3 cursor-pointer hover:text-blue-400">
+              {file.title}
+            </li>
           </Link>
         ))}
       </ul>
