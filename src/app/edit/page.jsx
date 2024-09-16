@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { AiOutlineEdit } from "react-icons/ai";
 import getAllBlogs from "@/lib/getAllBlogs";
-import { format } from "date-fns";
 
 const EditFileMainPage = async () => {
   const blogs = await getAllBlogs();
@@ -16,16 +15,15 @@ const EditFileMainPage = async () => {
 
   return (
     <div className="p-6 space-y-6 h-screen flex flex-col items-center">
-      <h1 className="text-2xl font-bold mb-8  dark:text-white">All Files</h1>
+      <h1 className="text-2xl font-bold mb-8  dark:text-white">
+        All Files
+      </h1>
       <div className="w-full max-w-6xl">
         <table className="w-full table-auto border-collapse border border-gray-200 dark:border-gray-700 cursor-pointer">
           <thead>
             <tr className="bg-primary text-white text-sm">
               <th className="border border-gray-300 dark:border-gray-700 py-2 px-4 text-left">
                 File Name
-              </th>
-              <th className="border border-gray-300 dark:border-gray-700 py-2 px-4 text-center hidden lg:block">
-                Date
               </th>
               <th className="border border-gray-300 dark:border-gray-700 py-2 px-4 text-left">
                 Status
@@ -39,13 +37,9 @@ const EditFileMainPage = async () => {
             {blogs?.data?.map((blog) => (
               <tr
                 key={blog?._id}
-                className="hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-200"
               >
                 <td className="border border-gray-300 dark:border-gray-700 py-2 px-4 font-semibold">
                   {blog?.fileName}
-                </td>
-                <td className="border border-gray-300 dark:border-gray-700 py-2 px-4 font-semibold text-center hidden lg:block">
-                  {format(new Date(blog.uploadDate), "d MMMM yyyy 'at' h:mm a")}
                 </td>
                 <td className="border border-gray-300 dark:border-gray-700 py-2 px-4">
                   <span
@@ -55,9 +49,9 @@ const EditFileMainPage = async () => {
                   ></span>
                   {blog?.isOnline ? "Online" : "Offline"}
                 </td>
-                <td className="border border-red-600 dark:border-gray-700 py-2 px-4 flex justify-center">
+                <td className="border border-gray-300 dark:border-gray-700 py-2 px-4 ">
                   <Link href={`/edit/${blog?._id}`}>
-                    <button className="text-sm font-semibold text-blue-500 dark:text-blue-400 flex items-center gap-2 bg-gray-200 dark:bg-gray-900 border border-blue-600 py-1 px-3 rounded hover:bg-blue-600 hover:text-white transition-all duration-300">
+                    <button className="text-sm font-semibold text-blue-500 dark:text-blue-400 flex items-center justify-center  gap-2 bg-gray-200 dark:bg-gray-900 border border-blue-600 py-1 px-3 rounded hover:bg-blue-600 hover:text-white transition-all duration-300">
                       <AiOutlineEdit className="text-lg" /> Edit
                     </button>
                   </Link>
