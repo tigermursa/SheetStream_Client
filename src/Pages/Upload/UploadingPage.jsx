@@ -91,7 +91,7 @@ const UploadFile = () => {
   return (
     <div className="min-h-screen flex items-center justify-center ">
       <div
-        className={`bg-gray-800 p-14 border border-separate rounded-xl shadow-lg w-full max-w-md text-center relative transition-all ${
+        className={`md:bg-gray-900 p-14 md:border border-separate rounded-xl md:shadow-lg w-full max-w-md text-center relative transition-all ${
           dragActive ? "border-2 border-indigo-500 bg-gray-700" : ""
         }`}
         onDragOver={handleDragOver}
@@ -100,7 +100,7 @@ const UploadFile = () => {
       >
         <div className="text-white mb-4">
           <div className="text-2xl font-semibold mb-6">
-            Drag & Drop. It&apos;s Online.
+            Drag & Drop. It&apos;s Live.
           </div>
           <p>Drop your DOCX file here or click to upload</p>
         </div>
