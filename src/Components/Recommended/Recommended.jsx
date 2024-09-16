@@ -19,7 +19,7 @@ const Recommended = async () => {
         onlineBlogs.map((blog, index) => (
           <div key={index} className="">
             <Link href={`/blogs/${blog?._id}`}>
-              <div className="mt-5 text-sm flex gap-3 items-center justify-center">
+              <div className="mt-5 text-sm flex gap-3 items-center justify-center ">
                 <Image
                   src={blog?.imageOne}
                   alt={blog?.title}
@@ -27,7 +27,7 @@ const Recommended = async () => {
                   height={40}
                   className="rounded-sm"
                 />
-                <p className="truncate hover:text-blue-400 cursor-pointer">
+                <p className="truncate hover:text-blue-400 cursor-pointer w-full">
                   {blog.title}
                 </p>
               </div>
