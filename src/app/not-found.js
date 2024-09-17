@@ -6,9 +6,9 @@ export default function NotFound() {
       <h2 className="text-6xl font-bold mb-4 animate-pulse">404 - Not Found</h2>
       <p className="text-lg mb-6 text-black">Sorry, we couldn&rsquo;t find the page you&rsquo;re looking for.</p>
       <Link href="/">
-        <a className="px-6 py-3 bg-white text-purple-600 font-semibold rounded-lg shadow-lg hover:bg-purple-600 hover:text-white transition-all duration-300">
+        <p className="px-6 py-3 bg-white text-purple-600 font-semibold rounded-lg shadow-lg hover:bg-purple-600 hover:text-white transition-all duration-300">
           Return Home
-        </a>
+        </p>
       </Link>
     </div>
   );
