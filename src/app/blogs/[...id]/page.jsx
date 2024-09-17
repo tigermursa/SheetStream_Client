@@ -31,7 +31,7 @@ const BlogDetails = async ({ params }) => {
   return (
     <div className={font?.className}>
       <div>
-        <div className="w-[50%] mx-auto pt-10 pb-10">
+        <div className="w-[90%] lg:w-[50%] mx-auto pt-10 pb-10">
           {/* Conditional rendering for imageOne */}
           {blog?.data?.imageOne && (
             <div>
@@ -48,7 +48,7 @@ const BlogDetails = async ({ params }) => {
           {/* Conditional rendering for title */}
           {blog?.data?.title && (
             <div>
-              <h2 className="text-3xl font-extrabold mb-10 ">
+              <h2 className="text-xl  md:text-2xl lg:text-3xl font-extrabold mb-2 lg:mb-10  text-center md:text-start">
                 {blog?.data?.title}
               </h2>
             </div>
@@ -57,7 +57,7 @@ const BlogDetails = async ({ params }) => {
           <div className="relative">
             {/* Conditional rendering for imageTwo */}
             {blog?.data?.imageTwo && (
-              <div className="float-left mr-4 mb-2">
+              <div className="float-left mr-4 mb-2 hidden lg:block">
                 <Image
                   src={blog?.data?.imageTwo}
                   width={300}
