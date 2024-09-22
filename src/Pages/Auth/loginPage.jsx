@@ -61,7 +61,7 @@ const LoginPage = () => {
           </form>
 
           <p className="text-sm text-gray-700 dark:text-gray-300">
-            Don’t have an account? <a href="#" className="text-blue-600 dark:text-blue-400">Sign up</a>
+            Don’t have an account? <a href="/auth/register" className="text-blue-600 dark:text-blue-400">Sign up</a>
           </p>
         </div>
       </div>
