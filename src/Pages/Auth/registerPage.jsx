@@ -78,7 +78,7 @@ const RegisterPage = () => {
           </form>
 
           <p className="text-sm text-gray-700 dark:text-gray-300">
-            Already have an account? <a href="#" className="text-blue-600 dark:text-blue-400">Login here</a>
+            Already have an account? <a href="login" className="text-blue-600 dark:text-blue-400">Login here</a>
           </p>
         </div>
       </div>
@@ -86,7 +86,7 @@ const RegisterPage = () => {
       {/* Right side - Project Info */}
       <div className="md:w-1/2 w-full flex justify-center items-center bg-blue-600 p-8 text-white">
         <div className="space-y-4">
-          <h2 className="text-4xl font-bold">Flowbite</h2>
+          <h2 className="text-4xl font-bold">SheetStream</h2>
           <p className="text-lg">
             Explore the world’s leading design portfolios. Millions of designers and agencies around the world showcase their portfolio work on Flowbite – the home to the world’s best design and creative professionals.
           </p>
