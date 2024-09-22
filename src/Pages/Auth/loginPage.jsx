@@ -53,7 +53,7 @@ const LoginPage = () => {
             <div className="mt-6">
               <button
                 type="submit"
-                className="w-full bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600"
+                className="w-full bg-primaryDark text-white p-3 rounded-lg hover:bg-primary font-bold "
               >
                 Login
               </button>
@@ -67,7 +67,7 @@ const LoginPage = () => {
       </div>
 
       {/* Right side - Project Info */}
-      <div className="md:w-1/2 w-full flex justify-center items-center bg-blue-600 p-8 text-white">
+      <div className="md:w-1/2 w-full flex justify-center items-center bg-primaryDark p-8 text-white">
         <div className="space-y-4">
           <h2 className="text-4xl font-bold">SheetStream</h2>
           <p className="text-lg">
@@ -75,7 +75,7 @@ const LoginPage = () => {
           </p>
           <div className="flex items-center space-x-3">
             <div className="w-10 h-10 rounded-full bg-white text-blue-600 flex items-center justify-center">
-              <span>15.7k+</span>
+            <span className="text-xs">15.8k+</span>
             </div>
             <span>Happy Customers</span>
           </div>
