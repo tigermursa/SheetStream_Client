@@ -1,7 +1,5 @@
 import localFont from "next/font/local";
 import "./globals.css";
-import Navbar from "@/Components/Shared/Navbar/Navbar";
-import Footer from "@/Components/Shared/Footer/Footer";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Slide } from "react-toastify";
@@ -27,7 +25,6 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Navbar />
         <ToastContainer
           position="top-center"
           autoClose={2500}
@@ -42,7 +39,6 @@ export default function RootLayout({ children }) {
           theme="colored"
         />
         <div>{children}</div>
-        <Footer />
       </body>
     </html>
   );
