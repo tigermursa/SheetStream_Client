@@ -67,7 +67,7 @@ const LoginPage = () => {
       </div>
 
       {/* Right side - Project Info */}
-      <div className="md:w-1/2 w-full flex justify-center items-center bg-primaryDark p-8 text-white border">
+      <div className="md:w-1/2 w-full flex justify-center items-center bg-primaryDark p-8 text-white border border-red-600">
         <div className="space-y-4">
           <h2 className="text-4xl font-bold">SheetStream</h2>
           <p className="text-lg">
