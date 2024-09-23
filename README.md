@@ -43,25 +43,6 @@ This project was developed over three days, from September 10 to September 12. R
 
 ## Build Structure
 
-Route (app)                               Size     First Load JS
-┌ ƒ /                                     2.35 kB         106 kB
-├ ○ /_not-found                           137 B          87.5 kB
-├ ○ /blogs                                280 B          99.4 kB
-├ ● /blogs/[...id]                        386 B          92.8 kB
-├ ○ /edit                                 176 B          94.3 kB
-├ ƒ /edit/[...id]                         11.8 kB         115 kB
-└ ○ /upload                               1.24 kB        99.4 kB
-+ First Load JS shared by all             87.3 kB
-  ├ chunks/23-3f0b21b86839fda7.js         31.6 kB
-  ├ chunks/fd9d1056-dece9939c5280cc6.js   53.6 kB
-  └ other shared chunks (total)           2.14 kB
-
-Route (pages)                             Size     First Load JS
-─ ○ /Upload/UploadingPage                 7.17 kB        86.3 kB
-+ First Load JS shared by all             79.1 kB
-  ├ chunks/framework-bd7ad8ec63c6466b.js  44.8 kB
-  ├ chunks/main-a65a2876b21a7016.js       32.2 kB
-  └ other shared chunks (total)           2.11 kB
 
 ○  (Static)   prerendered as static content
 ●  (SSG)      prerendered as static HTML (uses getStaticProps)
