@@ -5,19 +5,19 @@ import getAllBlogs from "@/lib/getAllBlogs";
 const EditFileMainPage = async () => {
   const blogs = await getAllBlogs();
 
-  if (blogs?.data?.length === 0) {
+  if (blogs?.data?.length || blogs.length === 0) {
     return (
       <div className="text-gray-100 h-screen flex justify-center items-center">
-        <p>No files found to edit 🧐</p>
+        <p className="font-semibold">No files found to edit 🧐</p>
       </div>
     );
   }
 
+  console.log(blogs.length);
+
   return (
-    <div className="p-6 space-y-6 h-screen flex flex-col items-center">
-      <h1 className="text-2xl font-bold mb-8  dark:text-white">
-        All Files
-      </h1>
+    <div className="p-6 space-y-6 h-screen flex flex-col items-center ">
+      <h1 className="text-2xl font-bold mb-8  dark:text-white">All Files</h1>
       <div className="w-full max-w-6xl">
         <table className="w-full table-auto border-collapse border border-gray-200 dark:border-gray-700 cursor-pointer">
           <thead>
@@ -35,9 +35,7 @@ const EditFileMainPage = async () => {
           </thead>
           <tbody>
             {blogs?.data?.map((blog) => (
-              <tr
-                key={blog?._id}
-              >
+              <tr key={blog?._id}>
                 <td className="border border-gray-300 dark:border-gray-700 py-2 px-4 font-semibold">
                   {blog?.fileName}
                 </td>
