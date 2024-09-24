@@ -37,10 +37,10 @@ const BlogDetails = async ({ params }) => {
             <div>
               <Image
                 src={blog?.data?.imageOne}
-                width={600}
-                height={600}
+                width={1280}
+                height={720}
                 alt="Image one"
-                className="mx-auto mb-10 w-full h-auto rounded-lg"
+                className="mx-auto mb-2 w-full  h-[200px] sm:h-[400px] xl:h-[600px] object-cover object-center rounded-lg"
               />
             </div>
           )}
