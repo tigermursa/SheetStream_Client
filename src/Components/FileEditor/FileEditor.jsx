@@ -6,6 +6,7 @@ import { fetcher } from "@/lib/fetcher";
 import { toast } from "react-toastify";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import BASE_URL from "@/utils/BaseUrl";
 
 // Dynamically import ReactQuill to disable SSR
 import dynamic from "next/dynamic";
@@ -45,8 +46,8 @@ const FileEditor = ({ fileId }) => {
   const [imageTwoPreview, setImageTwoPreview] = useState(DEFAULT_IMAGE_URL);
   const [isOnline, setIsOnline] = useState(false); // Default to false
   const [isToggling, setIsToggling] = useState(false); // For toggle loading state
-  const BASE_URL = "https://sheetstream-server.onrender.com";
-
+  // eslint-disable-next-line no-unused-vars
+  const [description, setDescription] = useState("");
   //! (1)
   const { data, error, isLoading } = useSWR(
     `${BASE_URL}/api/v1/files/single/${fileId}`,
@@ -57,7 +58,7 @@ const FileEditor = ({ fileId }) => {
     if (data?.data) {
       setEditorContent(data?.data?.htmlContent || "");
       setValue("title", data?.data?.title || "");
-      setValue("shortDescription", data?.data?.shortDescription || "");
+      setValue("description", data?.data?.description || ""); // Ensure this line exists
       setImageOnePreview(data?.data?.imageOne || DEFAULT_IMAGE_URL);
       setImageTwoPreview(data?.data?.imageTwo || DEFAULT_IMAGE_URL);
       setIsOnline(data?.data?.isOnline);
@@ -104,13 +105,14 @@ const FileEditor = ({ fileId }) => {
         const response = await fetch(
           `${BASE_URL}/api/v1/files/update/${fileId}`,
           {
-            method: "POST",
+            method: "PATCH",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
               ...formData,
               htmlContent: editorContent,
               imageOne: imageOnePreview,
               imageTwo: imageTwoPreview,
+              description: formData.description || description,
             }),
           }
         );
@@ -193,7 +195,7 @@ const FileEditor = ({ fileId }) => {
   if (isLoading)
     return (
       <div className="text-gray-100 flex items-center justify-center text-lg text-center h-screen bg-gray-900 ">
-        <Loader/>
+        <Loader />
       </div>
     );
   if (error)
@@ -297,11 +299,9 @@ const FileEditor = ({ fileId }) => {
         Short Description
       </label>
       <input
-        {...register("shortDescription", {
-          required: "Short description is required",
-        })}
+        {...register("description")} // Ensure description is registered
         type="text"
-        placeholder="Enter short description"
+        placeholder="Enter description"
         className="w-full p-2 mb-4 border rounded-md border-gray-300 text-gray-900"
       />
       {errors.shortDescription && (
