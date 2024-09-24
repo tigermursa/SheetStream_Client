@@ -36,7 +36,7 @@ const EditFileMainPage = async () => {
           <tbody>
             {blogs?.data?.map((blog) => (
               <tr key={blog?._id}>
-                <td className="border border-gray-300 dark:border-gray-700 py-2 px-4 font-semibold truncate">
+                <td className="border border-gray-300 dark:border-gray-700 py-2 px-4 font-semibold truncate w-[10px]">
                   {blog?.fileName}
                 </td>
                 <td className="border border-gray-300 dark:border-gray-700 py-2 px-4">
