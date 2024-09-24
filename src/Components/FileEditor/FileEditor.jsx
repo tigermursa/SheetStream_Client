@@ -12,6 +12,7 @@ import dynamic from "next/dynamic";
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 import "react-quill/dist/quill.snow.css"; // Quill styles
 import "./FileEditor.css";
+import Loader from "../Ui/Loader/Loader";
 
 const DEFAULT_IMAGE_URL =
   "https://www.creativefabrica.com/wp-content/uploads/2021/04/05/Photo-Image-Icon-Graphics-10388619-1-1-580x386.jpg";
@@ -192,12 +193,12 @@ const FileEditor = ({ fileId }) => {
   if (isLoading)
     return (
       <div className="text-gray-100 flex items-center justify-center text-lg text-center h-screen bg-gray-900 ">
-        Loading file...
+        <Loader/>
       </div>
     );
   if (error)
     return (
-      <div className="text-gray-100 flex items-center justify-center text-lg text-center h-screen bg-gray-900 ">
+      <div className="text-red-500 flex items-center justify-center text-lg text-center h-screen bg-gray-900 ">
         Error loading file...
       </div>
     );
