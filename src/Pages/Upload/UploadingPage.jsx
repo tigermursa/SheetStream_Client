@@ -3,6 +3,7 @@ import { fetcher } from "@/lib/fetcher";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import useSWR from "swr";
+import BASE_URL from "@/utils/BaseUrl";
 
 const UploadFile = () => {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -10,10 +11,7 @@ const UploadFile = () => {
   const [dragActive, setDragActive] = useState(false);
 
   // Use SWR to fetch the list of files
-  const { mutate } = useSWR(
-    "https://sheetstream-server.vercel.app/api/v1/files/files",
-    fetcher
-  );
+  const { mutate } = useSWR(`${BASE_URL}/api/v1/files/files`, fetcher);
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -40,13 +38,10 @@ const UploadFile = () => {
     formData.append("file", selectedFile);
 
     try {
-      const response = await fetch(
-        "https://sheetstream-server.vercel.app/api/v1/files/upload",
-        {
-          method: "POST",
-          body: formData,
-        }
-      );
+      const response = await fetch(`${BASE_URL}/api/v1/files/upload`, {
+        method: "POST",
+        body: formData,
+      });
 
       const data = await response.json();
 
