@@ -67,10 +67,10 @@ const BlogMainPage = async () => {
                 )}
 
                 {/* Render Short Description */}
-                {blog?.shortDescription && (
+                {blog?.description && (
                   <div>
                     <h2 className="text-sm lg:ext-lg font-normal  mb-6">
-                      {blog.shortDescription}...
+                      {blog?.description}...
                     </h2>
                   </div>
                 )}
