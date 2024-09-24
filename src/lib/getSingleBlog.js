@@ -1,7 +1,7 @@
 export default async function getSingleBlogs(id) {
   try {
     const response = await fetch(
-      `https://sheetstream-server.vercel.app/api/v1/files/single/${id}`
+      `https://sheetstream-server.onrender.com/api/v1/files/single/${id}`
     );
 
     if (!response.ok) {
@@ -14,3 +14,4 @@ export default async function getSingleBlogs(id) {
     return { error: error.message };
   }
 }
+

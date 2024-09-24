@@ -1,7 +1,7 @@
 export default async function getAllBlogs() {
   try {
     const result = await fetch(
-      "https://sheetstream-server.vercel.app/api/v1/files/files",
+      "https://sheetstream-server.onrender.com/api/v1/files/files",
       {
         next: {
           revalidate: 120,

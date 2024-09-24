@@ -44,7 +44,7 @@ const FileEditor = ({ fileId }) => {
   const [imageTwoPreview, setImageTwoPreview] = useState(DEFAULT_IMAGE_URL);
   const [isOnline, setIsOnline] = useState(false); // Default to false
   const [isToggling, setIsToggling] = useState(false); // For toggle loading state
-  const BASE_URL = "https://sheetstream-server.vercel.app";
+  const BASE_URL = "https://sheetstream-server.onrender.com";
 
   //! (1)
   const { data, error, isLoading } = useSWR(
