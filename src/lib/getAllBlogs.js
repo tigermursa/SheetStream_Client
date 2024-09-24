@@ -1,19 +1,18 @@
 export default async function getAllBlogs() {
   try {
-    const result = await fetch(
-      "https://sheetstream-server.onrender.com/api/v1/files/files",
-      {
-        next: {
-          revalidate: 120,
-        },
-      }
-    );
-    if (!result.ok) {
-      throw new Error(`HTTP error! status: ${result.status}`);
+    const response = await fetch("https://sheetstream-server.onrender.com/api/v1/files/files", {
+      method: "GET",
+      cache: "no-store", // Disable caching
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
-    return result.json();
+
+    const data = await response.json(); // Parse response as JSON
+    return data;
   } catch (error) {
-    console.error("Error fetching blogs:", error);
-    return []; // Return an empty array or handle it accordingly
+    console.error("Error fetching blogs:", error.message);
+    return []; // Return an empty array in case of error
   }
 }

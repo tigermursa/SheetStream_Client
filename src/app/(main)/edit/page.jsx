@@ -5,7 +5,7 @@ import getAllBlogs from "@/lib/getAllBlogs";
 const EditFileMainPage = async () => {
   const blogs = await getAllBlogs();
 
-  if (blogs?.data?.length || blogs.length === 0) {
+  if (blogs?.data?.length === 0 || blogs.length === 0) {
     return (
       <div className="text-gray-100 h-screen flex justify-center items-center">
         <p className="font-semibold">No files found to edit 🧐</p>
@@ -13,7 +13,7 @@ const EditFileMainPage = async () => {
     );
   }
 
-  console.log(blogs.length);
+  // console.log(blogs);
 
   return (
     <div className="p-6 space-y-6 h-screen flex flex-col items-center ">
@@ -36,7 +36,7 @@ const EditFileMainPage = async () => {
           <tbody>
             {blogs?.data?.map((blog) => (
               <tr key={blog?._id}>
-                <td className="border border-gray-300 dark:border-gray-700 py-2 px-4 font-semibold">
+                <td className="border border-gray-300 dark:border-gray-700 py-2 px-4 font-semibold truncate">
                   {blog?.fileName}
                 </td>
                 <td className="border border-gray-300 dark:border-gray-700 py-2 px-4">
@@ -49,7 +49,7 @@ const EditFileMainPage = async () => {
                 </td>
                 <td className="border border-gray-300 dark:border-gray-700 py-2 px-4 ">
                   <Link href={`/edit/${blog?._id}`}>
-                    <button className="text-sm font-semibold text-blue-500 dark:text-blue-400 flex items-center justify-center  gap-2 bg-gray-200 dark:bg-gray-900 border border-blue-600 py-1 px-3 rounded hover:bg-blue-600 hover:text-white transition-all duration-300">
+                    <button className="flex items-center gap-2 hover:text-primary">
                       <AiOutlineEdit className="text-lg" /> Edit
                     </button>
                   </Link>

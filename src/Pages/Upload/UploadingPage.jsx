@@ -28,7 +28,7 @@ const UploadFile = () => {
     }
   };
 
-  const handleFileUpload = async () => {
+  const handleFileUpload = async (event) => {
     if (!selectedFile) {
       toast.error("Please select a DOCX file first.");
       return;
@@ -36,6 +36,11 @@ const UploadFile = () => {
 
     const formData = new FormData();
     formData.append("file", selectedFile);
+
+    const uploadButton = event.target; // Access the button element from the event
+
+    uploadButton.disabled = true; // Disable the button
+    uploadButton.textContent = "Uploading..."; // Change the button text
 
     try {
       const response = await fetch(`${BASE_URL}/api/v1/files/upload`, {
@@ -54,6 +59,9 @@ const UploadFile = () => {
     } catch (error) {
       console.error("Upload error:", error);
       toast.error("File upload failed. Please try again.");
+    } finally {
+      uploadButton.disabled = false; // Re-enable the button
+      uploadButton.textContent = "Upload"; // Restore the button text
     }
   };
 
