@@ -3,6 +3,7 @@ import getAllBlogs from "@/lib/getAllBlogs";
 import getSingleBlogs from "@/lib/getSingleBlog";
 import Image from "next/image";
 import { Open_Sans } from "next/font/google";
+import DefaultImage from "@/utils/DefaultImage";
 
 const font = Open_Sans({
   subsets: ["latin"],
@@ -56,7 +57,7 @@ const BlogDetails = async ({ params }) => {
 
           <div className="relative">
             {/* Conditional rendering for imageTwo */}
-            {blog?.data?.imageTwo && (
+            {blog?.data?.imageTwo === !DefaultImage && blog?.data?.imageTwo && (
               <div className="float-left mr-4 mb-2 hidden lg:block">
                 <Image
                   src={blog?.data?.imageTwo}
