@@ -14,9 +14,9 @@ const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 import "react-quill/dist/quill.snow.css"; // Quill styles
 import "./FileEditor.css";
 import Loader from "../Ui/Loader/Loader";
+import DefaultImage from "@/utils/DefaultImage";
 
-const DEFAULT_IMAGE_URL =
-  "https://www.creativefabrica.com/wp-content/uploads/2021/04/05/Photo-Image-Icon-Graphics-10388619-1-1-580x386.jpg";
+
 
 const FileEditor = ({ fileId }) => {
   useEffect(() => {
@@ -42,8 +42,8 @@ const FileEditor = ({ fileId }) => {
   const [deleting, setDeleting] = useState(false);
   const [isLoadingImageOne, setIsLoadingImageOne] = useState(false);
   const [isLoadingImageTwo, setIsLoadingImageTwo] = useState(false);
-  const [imageOnePreview, setImageOnePreview] = useState(DEFAULT_IMAGE_URL);
-  const [imageTwoPreview, setImageTwoPreview] = useState(DEFAULT_IMAGE_URL);
+  const [imageOnePreview, setImageOnePreview] = useState(DefaultImage);
+  const [imageTwoPreview, setImageTwoPreview] = useState(DefaultImage);
   const [isOnline, setIsOnline] = useState(false); // Default to false
   const [isToggling, setIsToggling] = useState(false); // For toggle loading state
   // eslint-disable-next-line no-unused-vars
@@ -59,8 +59,8 @@ const FileEditor = ({ fileId }) => {
       setEditorContent(data?.data?.htmlContent || "");
       setValue("title", data?.data?.title || "");
       setValue("description", data?.data?.description || ""); // Ensure this line exists
-      setImageOnePreview(data?.data?.imageOne || DEFAULT_IMAGE_URL);
-      setImageTwoPreview(data?.data?.imageTwo || DEFAULT_IMAGE_URL);
+      setImageOnePreview(data?.data?.imageOne || DefaultImage);
+      setImageTwoPreview(data?.data?.imageTwo || DefaultImage);
       setIsOnline(data?.data?.isOnline);
     }
   }, [data, setValue]);
