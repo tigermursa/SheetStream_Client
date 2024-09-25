@@ -2,8 +2,9 @@
 import registerUser from "@/lib/auth/register";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-
+import { useRouter } from "next/navigation";
 const RegisterPage = () => {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -23,7 +24,7 @@ const RegisterPage = () => {
         console.log(result.errors[0].message);
       } else {
         toast.success("Registration successful");
-        
+        router.push("/");
       }
     } catch (error) {
       console.error("Registration failed:", error);
