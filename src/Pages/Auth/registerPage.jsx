@@ -1,5 +1,7 @@
 "use client";
+import registerUser from "@/lib/auth/register";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 
 const RegisterPage = () => {
   const {
@@ -8,9 +10,25 @@ const RegisterPage = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log(data);
-    // Submit data to API or handle accordingly
+  const onSubmit = async (data) => {
+    try {
+      const result = await registerUser({
+        userName: data.userName,
+        email: data.email,
+        password: data.password,
+      });
+
+      if (result.errors) {
+        toast.error(result?.errors[0]?.message);
+        console.log(result.errors[0].message);
+      } else {
+        toast.success("Registration successful");
+        
+      }
+    } catch (error) {
+      console.error("Registration failed:", error);
+      toast.error("Registration failed");
+    }
   };
 
   return (
@@ -23,6 +41,7 @@ const RegisterPage = () => {
           </h2>
 
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+            {/* Username Input */}
             <div>
               <input
                 type="text"
@@ -39,6 +58,7 @@ const RegisterPage = () => {
               )}
             </div>
 
+            {/* Email Input */}
             <div>
               <input
                 type="email"
@@ -53,6 +73,7 @@ const RegisterPage = () => {
               )}
             </div>
 
+            {/* Password Input */}
             <div>
               <input
                 type="password"
@@ -69,6 +90,7 @@ const RegisterPage = () => {
               )}
             </div>
 
+            {/* Terms Checkbox */}
             <div className="flex items-center space-x-2">
               <input
                 type="checkbox"
@@ -79,16 +101,7 @@ const RegisterPage = () => {
               </label>
             </div>
 
-            <div className="flex items-center space-x-2">
-              <input
-                type="checkbox"
-                className="form-checkbox text-blue-600 dark:text-blue-400"
-              />
-              <label className="text-gray-700 dark:text-gray-300 text-sm">
-                Email me about product updates and resources.
-              </label>
-            </div>
-
+            {/* Submit Button */}
             <div className="mt-6">
               <button
                 type="submit"
@@ -99,6 +112,7 @@ const RegisterPage = () => {
             </div>
           </form>
 
+          {/* Already have an account */}
           <p className="text-sm text-gray-700 dark:text-gray-300">
             Already have an account?{" "}
             <a href="login" className="text-blue-600 dark:text-blue-400">
@@ -119,9 +133,7 @@ const RegisterPage = () => {
             professionals.
           </p>
           <div className="flex items-center space-x-3">
-            {/* Example of an avatar group */}
             <div className="w-10 h-10 rounded-full bg-white text-blue-600 flex items-center justify-center">
-              {/* User Image Placeholder */}
               <span className="text-xs">15.8k+</span>
             </div>
             <span>Happy Customers</span>

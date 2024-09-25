@@ -1,8 +1,8 @@
+import BASE_URL from "@/utils/BaseUrl";
+
 export default async function getSingleBlogs(id) {
   try {
-    const response = await fetch(
-      `https://sheetstream-server.onrender.com/api/v1/files/single/${id}`
-    );
+    const response = await fetch(`${BASE_URL}/api/v1/files/single/${id}`);
 
     if (!response.ok) {
       throw new Error(`Error fetching blog: ${response.statusText}`);
@@ -14,4 +14,3 @@ export default async function getSingleBlogs(id) {
     return { error: error.message };
   }
 }
-

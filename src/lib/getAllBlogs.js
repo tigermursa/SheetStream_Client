@@ -1,12 +1,11 @@
+import BASE_URL from "@/utils/BaseUrl";
+
 export default async function getAllBlogs() {
   try {
-    const response = await fetch(
-      "https://sheetstream-server.onrender.com/api/v1/files/files",
-      {
-        method: "GET",
-        cache: "no-store", // Disable caching
-      }
-    );
+    const response = await fetch(`${BASE_URL}/api/v1/files/files`, {
+      method: "GET",
+      cache: "no-store", // Disable caching
+    });
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
