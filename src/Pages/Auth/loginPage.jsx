@@ -1,16 +1,36 @@
 "use client";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify"; // Import toast
+import { useRouter } from "next/navigation"; // Import useRouter
+import loginUser from "@/lib/auth/login"; // Import your login API function
 
 const LoginPage = () => {
+  const router = useRouter(); // Initialize useRouter
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log(data);
-    // Handle login logic here (e.g., API call)
+  const onSubmit = async (data) => {
+    try {
+      const result = await loginUser({
+        email: data.email,
+        password: data.password,
+      });
+
+      if (result.errors) {
+        toast.error(result?.errors[0]?.message);
+        console.log(result.errors[0].message);
+      } else {
+        toast.success("Login successful");
+        // Redirect or perform additional actions after successful login
+        router.push("/"); // Redirect to the home page after login
+      }
+    } catch (error) {
+      console.error("Login failed:", error);
+      toast.error("Login failed");
+    }
   };
 
   return (
@@ -21,11 +41,10 @@ const LoginPage = () => {
           <h2 className="text-3xl font-bold text-gray-900 dark:text-white">
             Welcome Back
           </h2>
-          <p className="text-gray-700 dark:text-gray-300">
-            Login to your account
-          </p>
+          <p className="text-gray-700 dark:text-gray-300">Login to your account</p>
 
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+            {/* Email Input */}
             <div>
               <input
                 type="email"
@@ -40,6 +59,7 @@ const LoginPage = () => {
               )}
             </div>
 
+            {/* Password Input */}
             <div>
               <input
                 type="password"
@@ -56,6 +76,7 @@ const LoginPage = () => {
               )}
             </div>
 
+            {/* Remember Me Checkbox */}
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-2">
                 <input
@@ -71,10 +92,11 @@ const LoginPage = () => {
               </a>
             </div>
 
+            {/* Submit Button */}
             <div className="mt-6">
               <button
                 type="submit"
-                className="w-full bg-primaryDark text-white p-3 rounded-lg hover:bg-primary font-bold "
+                className="w-full bg-primaryDark text-white p-3 rounded-lg hover:bg-primary font-bold"
               >
                 Login
               </button>
@@ -94,7 +116,7 @@ const LoginPage = () => {
       </div>
 
       {/* Right side - Project Info */}
-      <div className="md:w-1/2 w-full flex justify-center items-center bg-primaryDark p-8 text-white ">
+      <div className="md:w-1/2 w-full flex justify-center items-center bg-primaryDark p-8 text-white">
         <div className="space-y-4">
           <h2 className="text-4xl font-bold">SheetStream</h2>
           <p className="text-lg">
