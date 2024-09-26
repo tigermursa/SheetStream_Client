@@ -1,9 +1,12 @@
 "use client";
+import { useState } from "react";
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import registerUser from "@/lib/auth/register";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 const RegisterPage = () => {
+  const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
   const {
     register,
@@ -75,15 +78,27 @@ const RegisterPage = () => {
             </div>
 
             {/* Password Input */}
-            <div>
+            {/* Password Input */}
+            <div className="relative">
               <input
-                type="password"
+                type={showPassword ? "text" : "password"} // Toggle between text and password
                 placeholder="Your password"
                 {...register("password", { required: "Password is required" })}
                 className={`w-full p-3 border rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600 dark:text-white ${
                   errors.password ? "border-red-500" : ""
                 }`}
               />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)} // Toggle password visibility
+                className="absolute inset-y-0 right-0 flex items-center pr-3"
+              >
+                {showPassword ? (
+                  <AiFillEyeInvisible className="text-gray-400" />
+                ) : (
+                  <AiFillEye className="text-gray-400" />
+                )}
+              </button>
               {errors.password && (
                 <p className="text-red-500 text-sm">
                   {errors.password.message}
