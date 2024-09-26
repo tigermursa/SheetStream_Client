@@ -11,6 +11,7 @@ import {
   FaInfoCircle,
 } from "react-icons/fa";
 import ButtonToggleLightAndDark from "@/Components/Ui/Buttons/ButtonToggleLightAndDark";
+import useUser from "@/hooks/user";
 
 const navItems = [
   { name: "Home", href: "/", icon: <FaHome size={20} /> },
@@ -22,6 +23,9 @@ const navItems = [
 const Navbar = () => {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
+
+  const { user, loading, error, logout } = useUser();
+  console.log(user);
 
   const isActive = (href) => {
     if (href === "/") {
