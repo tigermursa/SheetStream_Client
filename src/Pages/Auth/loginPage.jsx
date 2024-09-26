@@ -1,4 +1,6 @@
 "use client";
+import { useState } from "react";
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify"; // Import toast
 import { useRouter } from "next/navigation"; // Import useRouter
@@ -6,6 +8,7 @@ import loginUser from "@/lib/auth/login"; // Import your login API function
 
 const LoginPage = () => {
   const router = useRouter(); // Initialize useRouter
+  const [showPassword, setShowPassword] = useState(false);
   const {
     register,
     handleSubmit,
@@ -41,7 +44,9 @@ const LoginPage = () => {
           <h2 className="text-3xl font-bold text-gray-900 dark:text-white">
             Welcome Back
           </h2>
-          <p className="text-gray-700 dark:text-gray-300">Login to your account</p>
+          <p className="text-gray-700 dark:text-gray-300">
+            Login to your account
+          </p>
 
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             {/* Email Input */}
@@ -60,15 +65,26 @@ const LoginPage = () => {
             </div>
 
             {/* Password Input */}
-            <div>
+            <div className="relative">
               <input
-                type="password"
+                type={showPassword ? "text" : "password"} // Toggle between text and password
                 placeholder="Your password"
                 {...register("password", { required: "Password is required" })}
                 className={`w-full p-3 border rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600 dark:text-white ${
                   errors.password ? "border-red-500" : ""
                 }`}
               />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)} // Toggle password visibility
+                className="absolute inset-y-0 right-0 flex items-center pr-3"
+              >
+                {showPassword ? (
+                  <AiFillEyeInvisible className="text-gray-400" />
+                ) : (
+                  <AiFillEye className="text-gray-400" />
+                )}
+              </button>
               {errors.password && (
                 <p className="text-red-500 text-sm">
                   {errors.password.message}
