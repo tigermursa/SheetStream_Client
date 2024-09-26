@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 // Middleware function
 export function middleware(req) {
   // Retrieve the token from cookies
-  const token = req.cookies.get("accessToken");
+  const token = req.cookies.get("access_token");
 
   // If the token exists, proceed with the request
   if (token) {

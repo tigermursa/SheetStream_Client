@@ -9,6 +9,7 @@ export default async function loginUser(userData) {
       },
       cache: "no-store", // Disable caching
       body: JSON.stringify(userData), // Send form data
+      credentials: "include", // Important for cookies!
     });
 
     const data = await response.json();
