@@ -11,8 +11,10 @@ import {
   FaInfoCircle,
 } from "react-icons/fa";
 import ButtonToggleLightAndDark from "@/Components/Ui/Buttons/ButtonToggleLightAndDark";
-import useUser from "@/hooks/user";
-
+import { useAuth } from "@/hooks/useAuth";
+import Loader from "@/Components/Ui/Loader/Loader";
+import ErrorUI from "@/Components/Ui/Error/ErrorUI";
+import { BiUserCircle } from "react-icons/bi";
 const navItems = [
   { name: "Home", href: "/", icon: <FaHome size={20} /> },
   { name: "Upload File", href: "/upload", icon: <FaUpload size={20} /> },
@@ -24,7 +26,7 @@ const Navbar = () => {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const { user, loading, error, logout } = useUser();
+  const { user, isLoading, isError } = useAuth();
   console.log(user);
 
   const isActive = (href) => {
@@ -33,6 +35,21 @@ const Navbar = () => {
     }
     return pathname.startsWith(href);
   };
+
+  if (isLoading) {
+    return (
+      <div>
+        <Loader />
+      </div>
+    );
+  }
+  if (isError) {
+    return (
+      <div>
+        <ErrorUI />
+      </div>
+    );
+  }
 
   return (
     <nav className="bg-gray-800 text-white shadow-md">
@@ -74,8 +91,14 @@ const Navbar = () => {
           </div>
         </div>
         {/* dark mood button component */}
-        <div className="hidden md:block">
-          <ButtonToggleLightAndDark />
+        <div className="hidden md:block border border-red-600">
+          <div className="flex items-center gap-5">
+            <ButtonToggleLightAndDark  />
+            <div className="flex">
+            <BiUserCircle size={20}/>
+              <h4>{user?.userName}</h4>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -103,7 +126,7 @@ const Navbar = () => {
           ))}
         </div>
         {/* dark mood button component */}
-        <div className=" md:hidden p-4 ">
+        <div className=" md:hidden p-4 border border-red-600 ">
           <ButtonToggleLightAndDark />
         </div>
       </div>
