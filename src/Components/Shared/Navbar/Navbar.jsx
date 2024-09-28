@@ -16,6 +16,7 @@ import Loader from "@/Components/Ui/Loader/Loader";
 import ErrorUI from "@/Components/Ui/Error/ErrorUI";
 import { BiUserCircle } from "react-icons/bi";
 import Image from "next/image";
+import Logout from "@/Components/Ui/Buttons/Logout/Logout";
 
 const navItems = [
   { name: "Home", href: "/", icon: <FaHome size={20} /> },
@@ -119,9 +120,7 @@ const Navbar = () => {
             <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-lg py-2 z-30">
               <div className="flex flex-col p-2">
                 <ButtonToggleLightAndDark />
-                <button className="mt-2 text-red-500 hover:text-red-700">
-                  Logout
-                </button>
+                <Logout />
               </div>
             </div>
           )}
