@@ -44,6 +44,7 @@ const Logout = () => {
       </button>
     </div>
   );
+  
 };
 
 export default Logout;
