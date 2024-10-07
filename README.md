@@ -1,7 +1,7 @@
 # SheetStream
 
-**Client Site Hosted Link**: [SheetStream on Vercel](https://vercel.ssd)  
-**Server Repository**: [SheetStream Server on GitHub](https://github.com/tigermursa/SheetStream_Server)
+**Client Site Hosted Link**: [SheetStream on Vercel](https://sheetstream-client.vercel.app/)  
+**Server Repository**: [SheetStream Server on GitHub](https://sheetstream-server.onrender.com)
 
 ## About the Project
 
