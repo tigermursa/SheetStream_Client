@@ -4,17 +4,18 @@ import Link from "next/link";
 import { useState } from "react";
 import useSWR from "swr";
 import { ImSearch } from "react-icons/im";
+import BASE_URL from "@/utils/BaseUrl";
 const Search = () => {
   const [searchQuery, setSearchQuery] = useState("");
 
   // Use SWR hook
   const { data: results, error } = useSWR(
-    searchQuery
-      ? `https://sheetstream-server.onrender.com/api/v1/files/search?q=${searchQuery}`
-      : null,
+    searchQuery ? `${BASE_URL}/api/v1/files/search?q=${searchQuery}` : null,
     fetcher,
     { refreshInterval: 0 } // Avoid auto-refreshing
   );
+
+  console.log();
 
   if (error) {
     console.error("Error fetching search results:", error);
