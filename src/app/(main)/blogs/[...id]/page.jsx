@@ -57,7 +57,7 @@ const BlogDetails = async ({ params }) => {
 
           <div className="relative">
             {/* Conditional rendering for imageTwo */}
-            {blog?.data?.imageTwo === !DefaultImage && blog?.data?.imageTwo && (
+            {blog?.data?.imageTwo && blog?.data?.imageTwo !== DefaultImage && (
               <div className="float-left mr-4 mb-2 hidden lg:block">
                 <Image
                   src={blog?.data?.imageTwo}
