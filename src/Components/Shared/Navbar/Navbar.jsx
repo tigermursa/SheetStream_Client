@@ -17,6 +17,7 @@ const navItems = [
   { name: "Upload File", href: "/upload", icon: <FaUpload size={20} /> },
   { name: "Edit", href: "/edit", icon: <FaEdit size={20} /> },
   { name: "About", href: "/about", icon: <FaInfoCircle size={20} /> },
+  { name: "Login", href: "/auth/login", icon: <FaInfoCircle size={20} /> },
 ];
 
 const Navbar = () => {

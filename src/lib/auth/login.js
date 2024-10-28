@@ -8,14 +8,27 @@ export default async function loginUser(userData) {
         "Content-Type": "application/json",
       },
       cache: "no-store", // Disable caching
-      body: JSON.stringify(userData), // Send form data
-      credentials: "include", // Important for cookies!
+      body: JSON.stringify(userData),
     });
 
     const data = await response.json();
-    return data;
+
+    if (response.ok) {
+      // Get the JWT token from the response (assuming the backend sends the token back in the response)
+      const token = data.token;
+
+      // Set the cookie from the frontend
+      document.cookie = `access_token=${token}; path=/; max-age=${
+        60 * 60 * 24
+      }; secure=true; samesite=strict;`;
+
+      return data; // User login successful, return the data
+    } else {
+      // Handle error
+      return { error: data.message };
+    }
   } catch (error) {
     console.error(error);
-    return null;
+    return { error: "Something went wrong" };
   }
 }

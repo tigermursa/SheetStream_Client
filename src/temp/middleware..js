@@ -1,21 +1,34 @@
-// import { NextResponse } from "next/server";
+import BASE_URL from "@/utils/BaseUrl";
 
-// // Middleware function
-// export function middleware(req) {
-//   // Retrieve the token from cookies
-//   const token = req.cookies.get("access_token");
+export default async function loginUser(userData) {
+  try {
+    const response = await fetch(`${BASE_URL}/api/v2/auth/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      cache: "no-store", // Disable caching
+      body: JSON.stringify(userData),
+    });
 
-//   // If the token exists, proceed with the request
-//   if (token) {
-//     return NextResponse.next();
-//   }
+    const data = await response.json();
 
-//   // If no token, redirect to login or another page
-//   const loginUrl = new URL("/auth/login", req.url);
-//   return NextResponse.redirect(loginUrl);
-// }
+    if (response.ok) {
+      // Get the JWT token from the response (assuming the backend sends the token back in the response)
+      const token = data.token;
 
-// // Define the paths where this middleware should run
-// export const config = {
-//   matcher: ["/upload"], // Add the routes you want to protect
-// };
+      // Set the cookie from the frontend
+      document.cookie = `access_token=${token}; path=/; max-age=${
+        60 * 60 * 24
+      }; secure=true; samesite=strict;`;
+
+      return data; // User login successful, return the data
+    } else {
+      // Handle error
+      return { error: data.message };
+    }
+  } catch (error) {
+    console.error(error);
+    return { error: "Something went wrong" };
+  }
+}
