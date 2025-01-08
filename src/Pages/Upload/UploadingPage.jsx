@@ -36,6 +36,7 @@ const UploadFile = () => {
 
     const formData = new FormData();
     formData.append("file", selectedFile);
+    formData.append("userID", "001"); // Add the hardcoded userID
 
     const uploadButton = event.target; // Access the button element from the event
 
