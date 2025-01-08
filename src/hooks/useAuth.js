@@ -1,37 +1,20 @@
-import useSWR from "swr";
+import { useState, useEffect } from "react";
 
-export const fetcher = async (url) => {
-  const res = await fetch(url, {
-    credentials: "include", // Ensures cookies are included in the request
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
+function useAuth() {
+  const [user, setUser] = useState(null);
 
-  if (!res.ok) {
-    throw new Error("Failed to fetch");
-  }
+  useEffect(() => {
+    // Retrieve the user data from sessionStorage
+    const storedUser = sessionStorage.getItem("user");
 
-  return res.json();
-};
-
-export function useAuth() {
-  const { data, error, isLoading } = useSWR(
-    "http://localhost:5000/api/v3/user/me",
-    fetcher,
-    {
-      shouldRetryOnError: false,
-      revalidateOnFocus: false,
+    if (storedUser) {
+      // Parse the user data from the JSON string
+      const [email, username, _id] = JSON.parse(storedUser);
+      setUser({ email, username, _id });
     }
-  );
+  }, []);
 
-  if (isLoading) {
-    return { user: null, isLoading: true, isError: false };
-  }
-
-  if (error) {
-    return { user: null, isLoading: false, isError: true };
-  }
-
-  return { user: data, isLoading: false, isError: false };
+  return user;
 }
+
+export default useAuth;

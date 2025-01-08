@@ -22,6 +22,11 @@ export default async function loginUser(userData) {
         60 * 60 * 24
       }; secure=true; samesite=strict;`;
 
+      // Save the user data in sessionStorage as an array
+      const user = [data.email, data.username, data._id];
+      sessionStorage.setItem("user", JSON.stringify(user));
+
+      console.log("can u see me", data);
       return data; // User login successful, return the data
     } else {
       // Handle error

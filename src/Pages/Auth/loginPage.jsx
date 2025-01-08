@@ -2,12 +2,12 @@
 import { useState } from "react";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { useForm } from "react-hook-form";
-import { toast } from "react-toastify"; // Import toast
-import { useRouter } from "next/navigation"; // Import useRouter
-import loginUser from "@/lib/auth/login"; // Import your login API function
+import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
+import loginUser from "@/lib/auth/login";
 
 const LoginPage = () => {
-  const router = useRouter(); // Initialize useRouter
+  const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const {
     register,

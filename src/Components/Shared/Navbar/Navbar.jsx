@@ -12,6 +12,8 @@ import {
 } from "react-icons/fa";
 import ButtonToggleLightAndDark from "@/Components/Ui/Buttons/ButtonToggleLightAndDark";
 
+import useAuth from "@/hooks/useAuth";
+
 const navItems = [
   { name: "Home", href: "/", icon: <FaHome size={20} /> },
   { name: "Upload File", href: "/upload", icon: <FaUpload size={20} /> },
@@ -30,6 +32,10 @@ const Navbar = () => {
     }
     return pathname.startsWith(href);
   };
+
+  const user = useAuth();
+
+  console.log("user data here", user);
 
   return (
     <nav className="bg-gray-800 text-white shadow-md">
