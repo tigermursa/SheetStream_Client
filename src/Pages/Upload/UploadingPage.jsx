@@ -5,10 +5,14 @@ import { toast } from "react-toastify";
 import useSWR from "swr";
 import BASE_URL from "@/utils/BaseUrl";
 
+import useAuth from "@/hooks/useAuth";
+
 const UploadFile = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [uploadStatus, setUploadStatus] = useState("");
   const [dragActive, setDragActive] = useState(false);
+
+  const user = useAuth();
 
   // Use SWR to fetch the list of files
   const { mutate } = useSWR(`${BASE_URL}/api/v1/files/files`, fetcher);
@@ -36,8 +40,8 @@ const UploadFile = () => {
 
     const formData = new FormData();
     formData.append("file", selectedFile);
-    formData.append("userID", "001"); // Add the hardcoded userID
-
+    formData.append("userID", user?._id); // Add the hardcoded userID
+    formData.append("writer", user?.username);
     const uploadButton = event.target; // Access the button element from the event
 
     uploadButton.disabled = true; // Disable the button
